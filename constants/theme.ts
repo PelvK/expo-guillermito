@@ -1,3 +1,7 @@
+import { Match } from "@/libs/types";
+
+export const BASE_URL = "https://vps-4677860-x.dattaweb.com/guillermito";
+
 export const COLORS = {
   // Primary Colors
   secondary: "#e2c00c", // Vibrant Yellow
@@ -31,7 +35,7 @@ export const COLORS = {
     backColor: "#1e1c15",
   },
 
-   tabBar: {
+  tabBar: {
     active: "#FFB700",
     inactive: "#CCCCCC",
     backColor: "#1e1c15",
@@ -123,92 +127,208 @@ export const SHADOWS = {
 export const CATEGORIES_LIST = [
   {
     description: "Sub-13",
-    id: "1",
+    id: 1,
   },
   {
     description: "Sub-15",
-    id: "2",
+    id: 2,
   },
   {
     description: "Sub-17",
-    id: "3",
+    id: 3,
   },
   {
     description: "Sub-19",
-    id: "4",
+    id: 4,
   },
   {
     description: "Sub-21",
-    id: "5",
+    id: 5,
   },
   {
     description: "Sub-23",
-    id: "6",
+    id: 6,
   },
 ];
 
 export const TEAM_LIST = [
   {
-    id: "1",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 1,
+    shield: "14.png",
     name: "CLUB ATLÉTICO SARMIENTO DE HUMBOLDT",
-    category: "Categoría 1234",
+    category: {
+      id: 1,
+      description: "Sub-13",
+    },
+    zone: "Zona A",
   },
   {
-    id: "2",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 2,
+    shield: "15.png",
     name: "CLUB JUVENTUD UNIDA DE HUMBOLDT",
-    category: "Categoría 1234",
+    category: {
+      id: 1,
+      description: "Sub-13",
+    },
+    zone: "Zona A",
   },
   {
-    id: "3",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 3,
+    shield: "16.png",
     name: "CLUB ATLÉTICO SAN LORENZO",
-    category: "Categoría 1234",
+    category: {
+      id: 1,
+      description: "Sub-13",
+    },
+    zone: "Zona B",
   },
   {
-    id: "4",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 4,
+    shield: "17.png",
     name: "CLUB ATLÉTICO PILAR",
-    category: "Categoría 1234",
+    category: {
+      id: 1,
+      description: "Sub-13",
+    },
+    zone: "Zona B",
   },
   {
-    id: "5",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 5,
+    shield: "18.png",
     name: "CLUB UNIÓN DE SANTA FÉ",
-    category: "Categoría 1234",
+    category: {
+      id: 2,
+      description: "Sub-15",
+    },
+    zone: "Zona C",
   },
   {
-    id: "6",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 6,
+    shield: "19.png",
     name: "CLUB ATLÉTICO SAN LORENZO",
-    category: "Categoría 1234",
+    category: {
+      id: 3,
+      description: "Sub-15",
+    },
+    zone: "Zona C",
   },
   {
-    id: "7",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 7,
+    shield: "10.png",
     name: "CLUB ATLÉTICO PILAR",
-    category: "Categoría 1234",
+    category: {
+      id: 2,
+      description: "Sub-15",
+    },
+    zone: "Zona D",
   },
   {
-    id: "8",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 8,
+    shield: "11.png",
     name: "CLUB UNIÓN DE SANTA FÉ",
-    category: "Categoría 1234",
+    category: {
+      id: 3,
+      description: "Sub-17",
+    },
+    zone: "Zona D",
   },
   {
-    id: "9",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 9,
+    shield: "12.png",
     name: "CLUB ATLÉTICO PILAR",
-    category: "Categoría 1234",
+    category: {
+      id: 3,
+      description: "Sub-17",
+    },
+    zone: "Zona E",
   },
   {
-    id: "10",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
+    id: 10,
+    shield: "13.png",
     name: "CLUB UNIÓN DE SANTA FÉ",
-    category: "Categoría 1234",
+    category: {
+      id: 3,
+      description: "Sub-17",
+    },
+    zone: "Zona E",
   },
 ];
+
+// Mock data for matches
+export const MATCHES_LIST: Match[] = [
+  {
+    ID: 1,
+    localID: 101,
+    visitID: 102,
+    localImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/11.png",
+    visitImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/12.png",
+    localName: "CLUB ATLÉTICO PILAR",
+    visitName: "CLUB UNIÓN DE SANTA FÉ",
+    localResult: 2,
+    visitResult: 1,
+    date: "2024-01-15",
+    hour: "15:30",
+    legend: "Estadio Municipal",
+  },
+  {
+    ID: 2,
+    localID: 103,
+    visitID: 104,
+    localImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/13.png",
+    visitImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/14.png",
+    localName: "CLUB JUVENTUD UNIDA",
+    visitName: "CLUB LOS ANDES",
+    localResult: 1,
+    visitResult: 1,
+    localPenalty: 4,
+    visitPenalty: 5,
+    date: "2024-01-20",
+    hour: "18:00",
+    legend: "Definición por penales",
+  },
+  {
+    ID: 3,
+    localID: 105,
+    visitID: 106,
+    localImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/15.png",
+    visitImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/16.png",
+    localName: "CLUB ESTRELLA DEL SUR",
+    visitName: "CLUB NUEVA ESPERANZA",
+    localResult: 0,
+    visitResult: 3,
+    date: "2024-01-25",
+    hour: "17:00",
+    legend: "Estadio Visitante",
+  },
+  {
+    ID: 4,
+    localID: 107,
+    visitID: 108,
+    localImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/17.png",
+    visitImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/18.png",
+    localName: "CLUB DEPORTIVO NORTE",
+    visitName: "CLUB ATLÉTICO SUR",
+    localResult: 0,
+    visitResult: 0,
+    date: "2024-02-01",
+    hour: "19:00",
+    legend: "Próximo partido",
+  },
+  {
+    ID: 5,
+    localID: 109,
+    visitID: 110,
+    localImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/19.png",
+    visitImage: "https://vps-4677860-x.dattaweb.com/guillermito/img/shields/10.png",
+    localName: "CLUB ATLÉTICO LIBERTAD",
+    visitName: "CLUB BARRIO NUEVO",
+    localResult: 0,
+    visitResult: 0,
+    date: "2024-02-08",
+    hour: "16:00",
+  },
+];
+
 
 export const ZONES = {
   "Sub-13": ["Zona A", "Zona B", "Zona C"],

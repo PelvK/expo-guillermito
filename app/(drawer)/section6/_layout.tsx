@@ -1,5 +1,6 @@
-import { Tabs } from "expo-router";
+import { Tabs, withLayoutContext } from "expo-router";
 import { useColorScheme } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
   Grid2x2 as Grid,
   MapIcon,
@@ -8,9 +9,56 @@ import {
 } from "lucide-react-native";
 import { COLORS } from "@/constants/theme";
 
+const { Navigator } = createMaterialTopTabNavigator();
+
+export const MaterialTopTabs = withLayoutContext(Navigator);
+
 export default function Section6TabsLayout() {
   const colorScheme = useColorScheme();
   const isDark = 'dark'; //colorScheme === "dark";
+
+
+  return (
+    <MaterialTopTabs
+      screenOptions={{
+        tabBarActiveTintColor: COLORS.tabBar.active,
+        tabBarInactiveTintColor: COLORS.tabBar.inactive,
+        tabBarStyle: {
+          backgroundColor: isDark ? COLORS.primary : '#FFFFFF',
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: COLORS.secondary,
+          height: 3,
+        },
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: "bold",
+          textTransform: "none",
+        },
+        tabBarPressColor: COLORS.secondary + "20",
+        swipeEnabled: true,
+      }}
+    >
+      <MaterialTopTabs.Screen
+        name="index"
+        options={{
+          title: "Instalaciones",
+        }}
+      />
+      <MaterialTopTabs.Screen
+        name="rules"
+        options={{
+          title: "Reglamento",
+        }}
+      />
+      <MaterialTopTabs.Screen
+        name="contacts"
+        options={{
+          title: "Contactos",
+        }}
+      />
+    </MaterialTopTabs>
+  );
 
   return (
     <Tabs

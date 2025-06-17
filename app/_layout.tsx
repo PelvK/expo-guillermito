@@ -54,6 +54,48 @@ export default function RootLayout() {
               },
             }}
           />
+          <Stack.Screen
+            name="section3/[teamID]"
+            options={{
+              title: "Detalles del equipo",
+              animation: "slide_from_right",
+              headerStyle: {
+                backgroundColor: COLORS.primary,
+              },
+              headerTintColor: "#FFFFFF",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="section4/[category]"
+            options={{
+              title: "Detalles de la categoría",
+              animation: "slide_from_right",
+              headerStyle: {
+                backgroundColor: COLORS.primary,
+              },
+              headerTintColor: "#FFFFFF",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="section5/[category]"
+            options={{
+              title: "Cruces de la categoría",
+              animation: "slide_from_right",
+              headerStyle: {
+                backgroundColor: COLORS.primary,
+              },
+              headerTintColor: "#FFFFFF",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
           <Stack.Screen name="+not-found" options={{ title: "Not Found" }} />
         </Stack>
       </ThemeProvider>

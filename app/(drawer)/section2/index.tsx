@@ -10,7 +10,6 @@ import { useRouter } from "expo-router";
 import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants/theme";
-import { Bold } from "lucide-react-native";
 
 export default function Section2Screen() {
   const router = useRouter();

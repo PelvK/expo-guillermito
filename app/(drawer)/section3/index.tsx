@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -18,12 +18,17 @@ import {
   SHADOWS,
   TEAM_LIST,
 } from "@/constants/theme";
+import { TeamCard } from "@/components/cards/TeamCard";
+import { useTeamsByCategory } from "@/hooks/teams";
 
 export default function Section3Screen() {
-  const router = useRouter();
-  const colorScheme = useColorScheme();
-  const [selectedCategory, setSelectedCategory] = useState<String | null>(null);
-  const isDark = "dark"; //colorScheme === "dark";
+  const [selectedCategory, setSelectedCategory] = useState<number>(0);
+  const { teams } = useTeamsByCategory(selectedCategory);
+  const isDark = "dark";
+
+  useEffect(() => {
+    console.log(selectedCategory);
+  }, [selectedCategory]);
 
   return (
     <View
@@ -71,32 +76,15 @@ export default function Section3Screen() {
       {/* Scroll vertical que ocupa el resto */}
       <View style={styles.matchListContainer}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          {TEAM_LIST.map((team) => (
-            <TouchableOpacity
-              key={team.id}
-              onPress={() => router.push(`/section3/${team.id}`)}
-              style={[
-                styles.categoryButton,
-                {
-                  backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
-                  ...SHADOWS[isDark ? "dark" : "light"].medium,
-                },
-              ]}
-            >
-              <View style={styles.matchItem}>
-                <Image
-                  source={{
-                    uri: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-                  }}
-                  style={styles.userImage}
-                />
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.matchTitle}>{team.name}</Text>
-                  <Text style={styles.matchSubtitle}>{team.category}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+          {teams?.length === 0 ? (
+            <Text style={{ textAlign: "center", marginTop: 20, color: "#fff" }}>
+              No hay equipos disponibles.
+            </Text>
+          ) : (
+            teams?.map((team) => (
+              <TeamCard key={team.id} item={team} index={team.id} />
+            ))
+          )}
         </ScrollView>
       </View>
     </View>
