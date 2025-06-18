@@ -37,7 +37,7 @@ export function TeamCard({ item, index }: TeamCardProps) {
         style={[
           styles.categoryButton,
           {
-            backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
+            backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary,
             ...SHADOWS[isDark ? "dark" : "light"].medium,
           },
         ]}
@@ -51,7 +51,7 @@ export function TeamCard({ item, index }: TeamCardProps) {
           />
           <View style={{ flex: 1 }}>
             <Text style={styles.matchTitle}>{item.name}</Text>
-            <Text style={styles.matchSubtitle}>Categoría {item.category.description} - {item.zone}</Text>
+            <Text style={styles.matchSubtitle}>Categoría {item.category.description} - {item.zone.description}</Text>
           </View>
         </View>
       </TouchableOpacity>

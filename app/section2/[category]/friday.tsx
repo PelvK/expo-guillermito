@@ -1,31 +1,85 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useColorScheme } from 'react-native';
-import { COLORS, SPACING } from '@/constants/theme';
+import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { useColorScheme } from "react-native";
+import { COLORS, SPACING } from "@/constants/theme";
+import { useMatchsByCategoryAndDay } from "@/hooks/matchs";
+import { MatchCard } from "@/components/cards/MatchCard";
 
 export default function FridayScreen() {
-  const { category } = useLocalSearchParams();
   const colorScheme = useColorScheme();
-  const isDark = 'dark' // colorScheme === 'dark';
+  const { category } = useLocalSearchParams();
+  const { matchs, loading, error } = useMatchsByCategoryAndDay(
+    Number(category),
+    "2025-07-19"
+  );
+  const isDark = "dark"; // colorScheme === 'dark';
+
+  if (loading) {
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark
+              ? COLORS.background.dark
+              : COLORS.background.light,
+          },
+        ]}
+      >
+        <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark
+              ? COLORS.background.dark
+              : COLORS.background.light,
+          },
+        ]}
+      >
+        <Text style={{ color: "red", marginBottom: 8 }}>Error al traer</Text>
+      </View>
+    );
+  }
+
+  if (!loading && !error && matchs?.length == 0) {
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark
+              ? COLORS.background.dark
+              : COLORS.background.light,
+          },
+        ]}
+      >
+        <Text style={{ color: "white", marginBottom: 8 }}>No hay nada...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? COLORS.background.dark : COLORS.background.light,
-        }
+          backgroundColor: isDark
+            ? COLORS.background.dark
+            : COLORS.background.light,
+        },
       ]}
     >
-      <Text style={[
-        styles.title,
-        { color: 'white' }
-      ]}>
-        Partidos del Viernes - {category}
-      </Text>
-      
-      {/* Add your matches list here */}
+      {matchs?.map((match) => (
+        <MatchCard item={match} index={match.ID} key={match.ID} />
+      ))}
     </ScrollView>
   );
 }
@@ -37,7 +91,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: SPACING.lg,
   },
 });

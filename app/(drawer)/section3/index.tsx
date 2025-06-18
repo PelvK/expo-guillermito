@@ -11,19 +11,13 @@ import { useRouter } from "expo-router";
 //import { ChevronRight } from 'lucide-react-native';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from "react-native";
-import {
-  CATEGORIES_LIST,
-  COLORS,
-  FONT_SIZES,
-  SHADOWS,
-  TEAM_LIST,
-} from "@/constants/theme";
+import { CATEGORIES_LIST, COLORS, FONT_SIZES, SHADOWS } from "@/constants";
 import { TeamCard } from "@/components/cards/TeamCard";
 import { useTeamsByCategory } from "@/hooks/teams";
 
 export default function Section3Screen() {
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
-  const { teams } = useTeamsByCategory(selectedCategory);
+  const { teams, loading, error } = useTeamsByCategory(selectedCategory);
   const isDark = "dark";
 
   useEffect(() => {
@@ -74,19 +68,53 @@ export default function Section3Screen() {
       </View>
 
       {/* Scroll vertical que ocupa el resto */}
-      <View style={styles.matchListContainer}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          {teams?.length === 0 ? (
-            <Text style={{ textAlign: "center", marginTop: 20, color: "#fff" }}>
-              No hay equipos disponibles.
-            </Text>
-          ) : (
-            teams?.map((team) => (
-              <TeamCard key={team.id} item={team} index={team.id} />
-            ))
-          )}
-        </ScrollView>
-      </View>
+      {loading && (
+        <View
+          style={[
+            styles.container,
+            {
+              backgroundColor: isDark
+                ? COLORS.background.dark
+                : COLORS.background.light,
+            },
+          ]}
+        >
+          <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
+        </View>
+      )}
+
+      {error && (
+        <View
+          style={[
+            styles.container,
+            {
+              backgroundColor: isDark
+                ? COLORS.background.dark
+                : COLORS.background.light,
+            },
+          ]}
+        >
+          <Text style={{ color: "red", marginBottom: 8 }}>Error al traer</Text>
+        </View>
+      )}
+
+      {!error && !loading && (
+        <View style={styles.matchListContainer}>
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            {teams?.length === 0 ? (
+              <Text
+                style={{ textAlign: "center", marginTop: 20, color: "#fff" }}
+              >
+                No hay equipos disponibles.
+              </Text>
+            ) : (
+              teams?.map((team) => (
+                <TeamCard key={team.id} item={team} index={team.id} />
+              ))
+            )}
+          </ScrollView>
+        </View>
+      )}
     </View>
   );
 }

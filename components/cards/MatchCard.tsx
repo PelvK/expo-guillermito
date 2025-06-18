@@ -21,6 +21,7 @@ export function MatchCard({ item, index }: MatchCardProps) {
   const opacity = useRef(new Animated.Value(0)).current;
   const isDark = "dark";
 
+  console.log(item);
   useEffect(() => {
     Animated.timing(opacity, {
       toValue: 1,
@@ -37,60 +38,64 @@ export function MatchCard({ item, index }: MatchCardProps) {
         style={[
           styles.matchCard,
           {
-            backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
+            backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary
           },
         ]}
       >
+        {/*Card header space*/}
         <View style={styles.matchHeader}>
-          <View style={styles.dateTimeContainer}>
-            <View style={styles.dateTime}>
-              <CalendarIcon size={16} color="#FFF" />
-              <Text style={styles.dateText}>{item.date}</Text>
-            </View>
-            <View style={styles.dateTime}>
-              <ClockIcon size={16} color="#FFF" />
-              <Text style={styles.timeText}>{item.hour}</Text>
-            </View>
+          <View style={styles.dateTime}>
+            <CalendarIcon size={16} color="#FFF" />
+            <Text style={styles.dateText}>{item.date}</Text>
           </View>
-          <View style={styles.venueContainer}>
-            <MapPinIcon size={16} color="#FFF" />
-            <Text style={styles.venueText}>{item.legend}</Text>
+          <View style={styles.dateTime}>
+            <ClockIcon size={16} color="#FFF" />
+            <Text style={styles.timeText}>{item.hour}</Text>
           </View>
         </View>
 
         <View style={styles.matchContent}>
-          <View style={styles.teamContainer}>
-            <Image source={{ uri: item.localImage }} style={styles.teamShield} />
-            <Text style={styles.teamName} numberOfLines={2}>
-              {item.localName}
-            </Text>
-          </View>
-
-          <View style={styles.vsContainer}>
-            <Text style={styles.vsText}>VS</Text>
-            {item.localResult && (
-              <Text style={styles.resultText}>{item.localResult}</Text>
-            )}
-            {item.legend === "upcoming" && (
-              <Text style={styles.upcomingText}>Próximo</Text>
-            )}
-          </View>
-
+          {/*Local team space*/}
           <View style={styles.teamContainer}>
             <Image
-              source={{ uri: item.visitImage }}
+              source={{ uri: item.localTeam.shield }}
               style={styles.teamShield}
             />
             <Text style={styles.teamName} numberOfLines={2}>
-              {item.visitName}
+              {item.localTeam.name}
+            </Text>
+          </View>
+
+          {/*Center space*/}
+          <View style={styles.vsContainer}>
+            <Text style={styles.vsText}>VS</Text>
+            {item.localResult && item.visitResult && (
+              <View style={styles.backResult}>
+                <Text style={styles.resultText}>{item.localResult}</Text>
+                <Text style={styles.resultText}>-</Text>
+                <Text style={styles.resultText}>{item.visitResult}</Text>
+              </View>
+            )}
+          </View>
+
+          {/*Visit team space*/}
+          <View style={styles.teamContainer}>
+            <Image
+              source={{ uri: item.visitTeam.shield }}
+              style={styles.teamShield}
+            />
+            <Text style={styles.teamName} numberOfLines={2}>
+              {item.visitTeam.name}
             </Text>
           </View>
         </View>
 
+        {/*Footer card space*/}
         <View style={styles.matchFooter}>
-          <Text style={styles.homeAwayText}>
-            TODO
-          </Text>
+          <View style={styles.venueContainer}>
+            <MapPinIcon size={16} color="#FFF" />
+            <Text style={styles.venueText}>{item.legend}</Text>
+          </View>
         </View>
       </View>
     </Animated.View>
@@ -195,32 +200,45 @@ const styles = StyleSheet.create({
   },
   matchCard: {
     borderRadius: 12,
-    padding: SPACING.md,
     marginBottom: SPACING.md,
   },
   matchHeader: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    backgroundColor: COLORS.card.secondary,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: SPACING.sm,
+  },
+  matchFooter: {
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    backgroundColor: COLORS.card.secondary,
+    alignItems: "center",
   },
   dateTimeContainer: {
     flexDirection: "row",
     gap: SPACING.sm,
   },
   dateTime: {
+    paddingHorizontal: 6,
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
   },
   dateText: {
+     
     color: "#FFF",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "500",
   },
   timeText: {
     color: "#FFF",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "500",
   },
   venueContainer: {
@@ -230,7 +248,7 @@ const styles = StyleSheet.create({
   },
   venueText: {
     color: "#FFF",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "500",
   },
   matchContent: {
@@ -246,38 +264,33 @@ const styles = StyleSheet.create({
   teamShield: {
     width: 40,
     height: 40,
-    borderRadius: 20,
-    marginBottom: 8,
+    marginBottom: 6,
   },
   teamName: {
-    color: "#FFF",
-    fontSize: 12,
+    color: "#333",
+    fontSize: 14,
+    paddingHorizontal: 4,
     fontWeight: "bold",
     textAlign: "center",
   },
   vsContainer: {
     alignItems: "center",
-    paddingHorizontal: SPACING.md,
+    paddingHorizontal: 4,
   },
   vsText: {
-    color: "#FFF",
+    color: "#333",
     fontSize: 16,
     fontWeight: "bold",
   },
   resultText: {
-    color: COLORS.secondary,
+    color: "#333",
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 4,
   },
   upcomingText: {
     color: "#CCC",
     fontSize: 12,
     marginTop: 4,
-  },
-  matchFooter: {
-    alignItems: "center",
-    marginTop: SPACING.sm,
   },
   homeAwayText: {
     color: "#CCC",
@@ -290,4 +303,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 50,
   },
+  backResult: {
+    backgroundColor: COLORS.card.terciary,
+    flexDirection: "row", 
+    paddingHorizontal: 6,
+    borderRadius: 5
+  }
 });

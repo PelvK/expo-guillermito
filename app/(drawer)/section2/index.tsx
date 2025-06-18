@@ -9,7 +9,7 @@ import {
 import { useRouter } from "expo-router";
 import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants/theme";
+import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants";
 
 export default function Section2Screen() {
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function Section2Screen() {
             style={[
               styles.categoryButton,
               {
-                backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
+                backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary,
                 ...SHADOWS[isDark ? "dark" : "light"].medium,
               },
             ]}

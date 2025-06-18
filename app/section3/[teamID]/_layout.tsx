@@ -4,8 +4,11 @@ import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST } from "@/constants/theme";
-import { CalendarCheck as CalendarCheckIcon, Trophy as TrophyIcon } from "lucide-react-native";
+import { COLORS, SPACING, TEAM_LIST } from "@/constants";
+import {
+  CalendarCheck as CalendarCheckIcon,
+  Trophy as TrophyIcon,
+} from "lucide-react-native";
 import { useTeamsByTeamId } from "@/hooks/teams";
 
 const { Navigator } = createMaterialTopTabNavigator();
@@ -15,17 +18,53 @@ export const MaterialTopTabs = withLayoutContext(Navigator);
 export default function TeamDetailTabsLayout() {
   const colorScheme = useColorScheme();
   const { teamID } = useLocalSearchParams();
-  const { team } = useTeamsByTeamId(teamID[0]);
+  const { team, loading, error } = useTeamsByTeamId(teamID[0]);
   const isDark = "dark"; //colorScheme === 'dark';
 
   useEffect(() => {
     console.log(team);
-  }, [team])
+  }, [team]);
 
-  if (!team) {
+  if (!team && !loading && !error) {
     return (
-      <View style={[styles.container, { backgroundColor: COLORS.background.dark }]}>
+      <View
+        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
+      >
         <Text style={styles.errorText}>Equipo no encontrado</Text>
+      </View>
+    );
+  }
+
+  if (loading) {
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark
+              ? COLORS.background.dark
+              : COLORS.background.light,
+          },
+        ]}
+      >
+        <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark
+              ? COLORS.background.dark
+              : COLORS.background.light,
+          },
+        ]}
+      >
+        <Text style={{ color: "red", marginBottom: 8 }}>Error al traer</Text>
       </View>
     );
   }

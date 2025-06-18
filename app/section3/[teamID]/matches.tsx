@@ -1,29 +1,40 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST, MATCHES_LIST } from "@/constants/theme";
-import { Calendar as CalendarIcon, Clock as ClockIcon, MapPin as MapPinIcon } from "lucide-react-native";
+import { COLORS, SPACING, MATCHES_LIST } from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
 import { MatchCard } from "@/components/cards/MatchCard";
+import { useMatchsByTeamId } from "@/hooks/matchs";
 
 export default function TeamMatchesScreen() {
   const { teamID } = useLocalSearchParams();
-  const { team } = useTeamsByTeamId(teamID[0]);
-  const colorScheme = useColorScheme();
+  const { matchs, loadingMatch, errorMatch } = useMatchsByTeamId(Number(teamID[0]));
   const isDark = "dark";
 
-  if (!team) {
+  if (errorMatch) {
     return (
-      <View style={[styles.container, { backgroundColor: COLORS.background.dark }]}>
+      <View
+        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
+      >
         <Text style={styles.errorText}>Equipo no encontrado</Text>
+      </View>
+    );
+  }
+
+  if (loadingMatch) {
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark
+              ? COLORS.background.dark
+              : COLORS.background.light,
+          },
+        ]}
+      >
+        <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
       </View>
     );
   }
@@ -39,11 +50,10 @@ export default function TeamMatchesScreen() {
         },
       ]}
     >
-
       {/* Matches List */}
       <ScrollView style={styles.matchesList}>
-        {MATCHES_LIST.map((item) => (
-          <MatchCard item={item} index={item.ID} key={item.ID}/>
+        {matchs?.map((item) => (
+          <MatchCard item={item} index={item.ID} key={item.ID} />
         ))}
       </ScrollView>
     </View>

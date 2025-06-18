@@ -8,15 +8,6 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
-import { CustomDrawerContent } from "@/components/drawer/CustomDrawerContent";
-import {
-  Chrome as Home,
-  Settings,
-  FileText,
-  ChartBar as BarChart4,
-  ShoppingCart,
-  User,
-} from "lucide-react-native";
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { COLORS } from "@/constants/theme";

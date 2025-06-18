@@ -2,8 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST } from "@/constants/theme";
+import { COLORS, SPACING } from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
+import { useMatchsByTeamId } from "@/hooks/matchs";
 
 // Mock data for standings
 const STANDINGS_DATA = [
@@ -76,22 +77,14 @@ const STANDINGS_DATA = [
 
 export default function TeamStandingsScreen() {
   const { teamID } = useLocalSearchParams();
-  const { team } = useTeamsByTeamId(teamID[0]);
+  const { team, loadingTeam, errorTeam } = useTeamsByTeamId(teamID[0]);
+  const { matchs, loadingMatch, errorMatch } = useMatchsByTeamId(Number(teamID[0]));
+
   const colorScheme = useColorScheme();
   const isDark = "dark";
 
-  if (!team) {
-    return (
-      <View
-        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
-      >
-        <Text style={styles.errorText}>Equipo no encontrado</Text>
-      </View>
-    );
-  }
-
   const renderStandingRow = (standing: any, index: number) => {
-    const isCurrentTeam = standing.team === team.name;
+    const isCurrentTeam = standing.team === team?.name;
 
     return (
       <View
