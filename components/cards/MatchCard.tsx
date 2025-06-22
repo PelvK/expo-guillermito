@@ -8,8 +8,7 @@ import {
 } from "react-native";
 import { useRef, useEffect } from "react";
 import { Match, Team } from "@mytypes";
-import { router } from "expo-router";
-import { COLORS, FONT_SIZES, SHADOWS, SPACING } from "@/constants/theme";
+import { COLORS, FONT_SIZES, SPACING } from "@/constants/theme";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react-native";
 
 type MatchCardProps = {
@@ -44,13 +43,8 @@ export function MatchCard({ item, index }: MatchCardProps) {
       >
         {/*Card header space*/}
         <View style={styles.matchHeader}>
-          <View style={styles.dateTime}>
-            <CalendarIcon size={16} color="#FFF" />
-            <Text style={styles.dateText}>{item.date}</Text>
-          </View>
-          <View style={styles.dateTime}>
-            <ClockIcon size={16} color="#FFF" />
-            <Text style={styles.timeText}>{item.hour}</Text>
+          <View style={styles.legendContainer}>
+            <Text style={styles.legendText}>{item.legend}</Text>
           </View>
         </View>
 
@@ -68,6 +62,9 @@ export function MatchCard({ item, index }: MatchCardProps) {
 
           {/*Center space*/}
           <View style={styles.vsContainer}>
+            {item.localResult && item.visitResult && (
+              <Text style={{verticalAlign: "top" }}>Finalizado</Text>
+            )}
             <Text style={styles.vsText}>VS</Text>
             {item.localResult && item.visitResult && (
               <View style={styles.backResult}>
@@ -94,7 +91,15 @@ export function MatchCard({ item, index }: MatchCardProps) {
         <View style={styles.matchFooter}>
           <View style={styles.venueContainer}>
             <MapPinIcon size={16} color="#FFF" />
-            <Text style={styles.venueText}>{item.legend}</Text>
+            <Text style={styles.venueText}>{item.place.description}</Text>
+          </View>
+          <View style={styles.dateContainer}>
+            <CalendarIcon size={16} color="#FFF" />
+            <Text style={styles.dateText}>{item.date}</Text>
+          </View>
+          <View style={styles.hourContainer}>
+            <ClockIcon size={16} color="#FFF" />
+            <Text style={styles.timeText}>{item.hour}</Text>
           </View>
         </View>
       </View>
@@ -104,16 +109,9 @@ export function MatchCard({ item, index }: MatchCardProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    borderTopLeftRadius: 5,
     alignContent: "center",
     justifyContent: "center",
     width: "100%",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    elevation: 1,
   },
   categoryButton: {
     margin: 5,
@@ -201,6 +199,12 @@ const styles = StyleSheet.create({
   matchCard: {
     borderRadius: 12,
     marginBottom: SPACING.md,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    elevation: 1,
   },
   matchHeader: {
     borderTopLeftRadius: 10,
@@ -219,19 +223,21 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     backgroundColor: COLORS.card.secondary,
     alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flex: 1,
   },
   dateTimeContainer: {
     flexDirection: "row",
     gap: SPACING.sm,
   },
   dateTime: {
-    paddingHorizontal: 6,
+    marginHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
   },
   dateText: {
-     
     color: "#FFF",
     fontSize: 14,
     fontWeight: "500",
@@ -241,7 +247,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
   },
+  legendText: {
+    color: "#FFF",
+    fontSize: 14,
+    fontWeight: "500",
+  },
   venueContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    marginHorizontal: 10
+  },
+  hourContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  legendContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,

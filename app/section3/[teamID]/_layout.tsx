@@ -4,11 +4,7 @@ import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST } from "@/constants";
-import {
-  CalendarCheck as CalendarCheckIcon,
-  Trophy as TrophyIcon,
-} from "lucide-react-native";
+import { COLORS, SPACING } from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
 
 const { Navigator } = createMaterialTopTabNavigator();
@@ -18,14 +14,14 @@ export const MaterialTopTabs = withLayoutContext(Navigator);
 export default function TeamDetailTabsLayout() {
   const colorScheme = useColorScheme();
   const { teamID } = useLocalSearchParams();
-  const { team, loading, error } = useTeamsByTeamId(teamID[0]);
+  const { team, loadingTeam, errorTeam } = useTeamsByTeamId(teamID[0]);
   const isDark = "dark"; //colorScheme === 'dark';
 
   useEffect(() => {
     console.log(team);
   }, [team]);
 
-  if (!team && !loading && !error) {
+  if (!team && !loadingTeam && !errorTeam) {
     return (
       <View
         style={[styles.container, { backgroundColor: COLORS.background.dark }]}
@@ -35,7 +31,7 @@ export default function TeamDetailTabsLayout() {
     );
   }
 
-  if (loading) {
+  if (loadingTeam) {
     return (
       <View
         style={[
@@ -52,7 +48,7 @@ export default function TeamDetailTabsLayout() {
     );
   }
 
-  if (error) {
+  if (errorTeam) {
     return (
       <View
         style={[
@@ -76,7 +72,9 @@ export default function TeamDetailTabsLayout() {
         <Image source={{ uri: team?.shield }} style={styles.headerShield} />
         <View style={styles.teamInfo}>
           <Text style={styles.teamHeaderName}>{team?.name}</Text>
-          <Text style={styles.teamCategory}>{team?.category.description}</Text>
+          <Text style={styles.teamCategory}>
+            Categoría {team?.category.description} - {team?.zone.description}
+          </Text>
         </View>
       </View>
 
@@ -87,7 +85,7 @@ export default function TeamDetailTabsLayout() {
             tabBarActiveTintColor: COLORS.tabBar.active,
             tabBarInactiveTintColor: COLORS.tabBar.inactive,
             tabBarStyle: {
-              backgroundColor: isDark ? COLORS.primary : "#FFFFFF",
+              backgroundColor: COLORS.headers.matchTopBar.background,
             },
             tabBarIndicatorStyle: {
               backgroundColor: COLORS.secondary,
@@ -125,15 +123,13 @@ export default function TeamDetailTabsLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background.dark,
+    backgroundColor: COLORS.headers.matchDetail.background,
   },
   teamHeader: {
     flexDirection: "row",
     alignItems: "center",
     padding: SPACING.lg,
     backgroundColor: COLORS.primary,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.secondary,
   },
   headerShield: {
     width: 60,
@@ -146,12 +142,12 @@ const styles = StyleSheet.create({
   teamHeaderName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFF",
+    color: COLORS.headers.matchDetail.title,
     marginBottom: 4,
   },
   teamCategory: {
     fontSize: 14,
-    color: "#CCC",
+    color: COLORS.headers.matchDetail.subtitle,
   },
   navigatorContainer: {
     flex: 1,

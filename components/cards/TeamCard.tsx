@@ -61,16 +61,9 @@ export function TeamCard({ item, index }: TeamCardProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    borderTopLeftRadius: 5,
     alignContent: "center",
     justifyContent: "center",
     width: "100%",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    elevation: 1,
   },
   categoryButton: {
     margin: 5,

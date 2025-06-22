@@ -7,9 +7,8 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST, MATCHES_LIST } from "@/constants/theme";
+import { COLORS, SPACING, MATCHES_LIST } from "@/constants";
 import {
   Calendar as CalendarIcon,
   Clock as ClockIcon,

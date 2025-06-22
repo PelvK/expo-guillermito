@@ -25,7 +25,9 @@ export async function getMatchsByCategoryAndDay(
         visitPenalty,
         date,
         hour,
+        place,
         legend,
+        type,
       } = item;
 
       const localShieldURL =
@@ -48,7 +50,9 @@ export async function getMatchsByCategoryAndDay(
         visitPenalty,
         date,
         hour,
+        place,
         legend,
+        type
       };
     });
   }
@@ -69,6 +73,8 @@ export async function getMatchsByCategoryAndDay(
       date,
       hour,
       legend,
+      place,
+      type,
     } = item;
 
     const localShieldURL =
@@ -91,7 +97,9 @@ export async function getMatchsByCategoryAndDay(
       visitPenalty,
       date,
       hour,
+      place,
       legend,
+      type
     };
   });
 }
@@ -119,6 +127,8 @@ export async function getMatchsByTeamId(
         date,
         hour,
         legend,
+        place,
+        type
       } = item;
 
       const localShieldURL =
@@ -141,7 +151,9 @@ export async function getMatchsByTeamId(
         visitPenalty,
         date,
         hour,
+        place,
         legend,
+        type
       };
     });
   }
@@ -161,7 +173,9 @@ export async function getMatchsByTeamId(
       visitPenalty,
       date,
       hour,
+      place,
       legend,
+      type,
     } = item;
 
     const localShieldURL =
@@ -184,7 +198,9 @@ export async function getMatchsByTeamId(
       visitPenalty,
       date,
       hour,
+      place,
       legend,
+      type,
     };
   });
 }

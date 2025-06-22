@@ -62,6 +62,39 @@ export const COLORS = {
     primary: "#ffeba4",
     secondary: "#473803",
     terciary: "#e9be27"
+  },
+  
+  positionCard: {
+    header: {
+      background: "#e6b50a"
+    },
+    selected: {
+      background: "#ffeba4",
+      border: "#ffdc60",
+      font: "#1A1A1A"
+    },
+    unselected: {
+      background: "#473803",
+      border: "#ffeba4",
+      font: "#eee"
+    }
+  },
+  
+  headers: {
+    positionTable: {
+      background: "#e2c00c",
+      border: "#ffeba4",
+      font: "#1A1A1A"
+    },
+    matchDetail: {
+      background: "#1e1c15",
+      border: "#ffeba4",
+      title: "#FFF",
+      subtitle: "#CCC",
+    },
+    matchTopBar: {
+      background: "#1D1D1D",
+    }
   }
 };
 

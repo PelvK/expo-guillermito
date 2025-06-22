@@ -1,3 +1,4 @@
+import { Place } from "./Place";
 import { Team } from "./Team";
 
 export type Match = {
@@ -8,9 +9,12 @@ export type Match = {
   visitResult: number;
   localPenalty?: number;
   visitPenalty?: number;
-  date?: string;
-  hour?: string;
-  legend?: string;
+  date: string;
+  hour: string;
+  legend: string;
+  place: Place;
+  type: number;
+  
 
   /** @todo sacar este parametro, es solo para filtrar la lista de partidos 
    * falsos, pero luego el parametro es para la condicion del SELECT nomas */

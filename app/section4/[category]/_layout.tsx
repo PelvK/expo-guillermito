@@ -4,11 +4,7 @@ import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST } from "@/constants/theme";
-import {
-  CalendarCheck as CalendarCheckIcon,
-  Trophy as TrophyIcon,
-} from "lucide-react-native";
+import { COLORS, SPACING } from "@/constants/";
 
 const { Navigator } = createMaterialTopTabNavigator();
 

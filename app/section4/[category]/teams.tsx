@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST } from "@/constants/theme";
+import { COLORS, SPACING, TEAM_LIST } from "@/constants";
 
 // Mock data for standings
 const STANDINGS_DATA = [
