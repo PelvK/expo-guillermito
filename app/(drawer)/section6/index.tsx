@@ -21,15 +21,14 @@ export default function InstalationsScreen() {
   
     return (
       <View style={{backgroundColor: COLORS.background.dark, flex: 1 }}>
-        <MapView style={styles.map} />
       </View>
     )
-  return (
-    <View style={[
-      styles.container, 
-      { 
-        backgroundColor: isDark ? '#111827' : '#F9FAFB',
-        paddingTop: insets.top,
+    return (
+      <View style={[
+        styles.container, 
+        { 
+          backgroundColor: isDark ? '#111827' : '#F9FAFB',
+          paddingTop: insets.top,
         paddingBottom: insets.bottom,
       }
     ]}>
@@ -40,6 +39,7 @@ export default function InstalationsScreen() {
         Categories
       </Text>
       
+        <MapView style={styles.map} />
       <ScrollView contentContainerStyle={styles.categoriesContainer}>
         {categories.map(category => (
           <TouchableOpacity 
