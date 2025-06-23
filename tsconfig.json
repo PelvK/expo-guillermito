@@ -8,7 +8,8 @@
       "@components": ["./components"],
       "@mytypes": ["./libs/types"],
       "@hooks": ["./hooks/*"],
-      "@myapis": ["./libs/api"]
+      "@myapis": ["./libs/api"],
+      "@assets": ["./assets/*"]
     }
   },
   "include": [

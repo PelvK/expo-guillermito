@@ -5,11 +5,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants";
+import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS, BACKGROUND_OPACITY } from "@/constants";
+import { CustomBackground } from "@/components/CustomBackground";
 
 export default function Section2Screen() {
   const router = useRouter();
@@ -19,55 +21,57 @@ export default function Section2Screen() {
   //const isDark = colorScheme === 'dark';
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-          paddingBottom: insets.bottom,
-        },
-      ]}
-    >
-      <ScrollView style={styles.content}>
-        <Text style={styles.title}>Seleccione una categoría</Text>
-        {CATEGORIES_LIST.map((category) => (
-          <TouchableOpacity
-            key={category.id}
-            style={[
-              styles.categoryButton,
-              {
-                backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary,
-                ...SHADOWS[isDark ? "dark" : "light"].medium,
-              },
-            ]}
-            onPress={() => {
-              router.push(`/section2/${category.id}`);
-            }}
-          >
-            <Text
+    <CustomBackground>
+      <View
+        style={[
+          styles.container,
+          {
+            paddingBottom: insets.bottom,
+          },
+        ]}
+      >
+        <ScrollView style={styles.content}>
+          <Text style={styles.title}>Seleccione una categoría</Text>
+          {CATEGORIES_LIST.map((category) => (
+            <TouchableOpacity
+              key={category.id}
               style={[
-                styles.categoryText,
+                styles.categoryButton,
                 {
-                  color: isDark
-                    ? COLORS.text.dark.primary
-                    : COLORS.text.light.primary,
+                  backgroundColor: isDark
+                    ? COLORS.card.primary
+                    : COLORS.card.primary,
+                  ...SHADOWS[isDark ? "dark" : "light"].medium,
                 },
               ]}
+              onPress={() => {
+                router.push(`/section2/${category.id}`);
+              }}
             >
-              {category.description}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+              <Text
+                style={[
+                  styles.categoryText,
+                  {
+                    color: isDark
+                      ? COLORS.text.dark.primary
+                      : COLORS.text.light.primary,
+                  },
+                ]}
+              >
+                {category.description}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     padding: SPACING.sm,
   },
   title: {

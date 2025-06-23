@@ -1,72 +1,75 @@
+import { BACKGROUND_OPACITY, COLORS, FOOTER_DRAWER_TEXT } from "@/constants";
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
-} from '@react-navigation/drawer';
-import { StyleSheet, View, Text, Image, useColorScheme } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "@react-navigation/drawer";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  useColorScheme,
+  ImageBackground,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function CustomDrawerContent(props: any) {
   const insets = useSafeAreaInsets();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-  
+  const isDark = "dark"; //colorScheme === 'dark';
+
   return (
-    <DrawerContentScrollView 
-      {...props}
-      contentContainerStyle={[
-        styles.container, 
-        { paddingTop: insets.top }
-      ]}
-    >
-      <View style={styles.headerContainer}>
-        <Image
-          source={{ uri: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg' }}
-          style={styles.userImage}
-        />
-        <View style={styles.userInfo}>
-          <Text style={[
-            styles.userName, 
-            { color: isDark ? '#FFFFFF' : '#1F2937' }
-          ]}>
-            Jessica Smith
-          </Text>
-          <Text style={[
-            styles.userEmail, 
-            { color: isDark ? '#9CA3AF' : '#6B7280' }
-          ]}>
-            jessica@example.com
-          </Text>
-        </View>
-      </View>
-      
-      <View style={[
-        styles.divider, 
-        { backgroundColor: isDark ? '#374151' : '#E5E7EB' }
-      ]} />
-      
-      <DrawerItemList {...props} />
-      
-      <View style={styles.footer}>
-        <Text style={[
-          styles.versionText, 
-          { color: isDark ? '#9CA3AF' : '#6B7280' }
-        ]}>
-          App Version 1.0.0
-        </Text>
-      </View>
-    </DrawerContentScrollView>
+    <View style={{ flex: 1 }}>
+      <ImageBackground
+        source={require("@/assets/background.png")}
+        style={{ flex: 1, backgroundColor: COLORS.background.dark }}
+        imageStyle={{ opacity: 0.3 }}
+      >
+        <DrawerContentScrollView
+          {...props}
+          contentContainerStyle={[styles.container, { paddingTop: insets.top }]}
+        >
+          <View style={styles.headerContainer}>
+            <Image
+              source={require("@/assets/banner-guillermito.png")}
+              style={styles.bannerImage}
+            />
+          </View>
+
+          <View
+            style={[
+              styles.divider,
+              { backgroundColor: COLORS.secondaryDark },
+            ]}
+          />
+
+          <DrawerItemList {...props} />
+
+          <View style={styles.footer}>
+            <Image
+              source={require("@/assets/logo-efi.png")}
+              style={{ height: 140, width: 140 }}
+            ></Image>
+            <Text style={styles.footerText}>{FOOTER_DRAWER_TEXT}</Text>
+          </View>
+        </DrawerContentScrollView>
+      </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bannerImage: {
+    width: "100%",
+    resizeMode: "contain",
+    height: 110,
+    marginTop: 10
+  },
   container: {
     flex: 1,
   },
   headerContainer: {
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
   },
   userImage: {
     width: 50,
@@ -79,22 +82,25 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
   },
   userEmail: {
     fontSize: 14,
   },
   divider: {
-    height: 1,
+    height: 2,
     marginVertical: 8,
   },
   footer: {
     padding: 16,
-    marginTop: 'auto',
+    marginTop: "auto",
+    alignItems: "center",
   },
-  versionText: {
+  footerText: {
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: "center",
+    padding: 12,
+    color: COLORS.background.light,
   },
 });

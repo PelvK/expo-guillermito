@@ -4,7 +4,8 @@ import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING } from "@/constants/";
+import { CATEGORY_NOT_FOUND_TEXT, COLORS, SPACING } from "@/constants/";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -17,10 +18,8 @@ export default function GroupDetailsTabsLayout() {
 
   if (!category) {
     return (
-      <View
-        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
-      >
-        <Text style={styles.errorText}>Categoría no encontrada</Text>
+      <View style={[styles.container]}>
+        <CustomNoResults message={CATEGORY_NOT_FOUND_TEXT}/>
       </View>
     );
   }
@@ -34,7 +33,7 @@ export default function GroupDetailsTabsLayout() {
             tabBarActiveTintColor: COLORS.tabBar.active,
             tabBarInactiveTintColor: COLORS.tabBar.inactive,
             tabBarStyle: {
-              backgroundColor: isDark ? COLORS.primary : "#FFFFFF",
+              backgroundColor: COLORS.headers.matchTopBar.background,
             },
             tabBarIndicatorStyle: {
               backgroundColor: COLORS.secondary,

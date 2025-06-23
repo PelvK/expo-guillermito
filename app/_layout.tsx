@@ -13,7 +13,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { COLORS } from "@/constants/theme";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = 'dark';  //useColorScheme();
   useFrameworkReady();
 
   return (
@@ -28,6 +28,9 @@ export default function RootLayout() {
               title: "Section 1 Detail",
               presentation: "card",
               animation: "slide_from_right",
+              contentStyle: {
+                backgroundColor: COLORS.background.dark,
+              }
             }}
           />
           <Stack.Screen
@@ -37,6 +40,9 @@ export default function RootLayout() {
               presentation: "card",
               animation: "slide_from_right",
               headerStyle: {
+                backgroundColor: COLORS.background.dark,
+              },
+              contentStyle: {
                 backgroundColor: COLORS.background.dark,
               },
               headerTintColor: "#FFFFFF",
@@ -50,8 +56,8 @@ export default function RootLayout() {
             options={{
               title: "Detalles del equipo",
               animation: "slide_from_right",
-              headerStyle: {
-                backgroundColor: COLORS.primary,
+              contentStyle: {
+                backgroundColor: COLORS.background.dark,
               },
               headerTintColor: "#FFFFFF",
               headerTitleStyle: {
@@ -67,6 +73,9 @@ export default function RootLayout() {
               headerStyle: {
                 backgroundColor: COLORS.primary,
               },
+              contentStyle: {
+                backgroundColor: COLORS.background.dark,
+              },
               headerTintColor: "#FFFFFF",
               headerTitleStyle: {
                 fontWeight: "bold",
@@ -80,6 +89,9 @@ export default function RootLayout() {
               animation: "slide_from_right",
               headerStyle: {
                 backgroundColor: COLORS.primary,
+              },
+              contentStyle: {
+                backgroundColor: COLORS.background.dark,
               },
               headerTintColor: "#FFFFFF",
               headerTitleStyle: {

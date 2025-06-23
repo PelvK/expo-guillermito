@@ -1,11 +1,19 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING } from "@/constants";
+import {
+  BACKGROUND_OPACITY,
+  COLORS,
+  SPACING,
+  TEAM_NOT_FOUND_TEXT,
+} from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
+import { CustomBackground } from "@/components/CustomBackground";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -14,8 +22,10 @@ export const MaterialTopTabs = withLayoutContext(Navigator);
 export default function TeamDetailTabsLayout() {
   const colorScheme = useColorScheme();
   const { teamID } = useLocalSearchParams();
-  const { team, loadingTeam, errorTeam } = useTeamsByTeamId(teamID[0]);
-  const isDark = "dark"; //colorScheme === 'dark';
+  const { team, loadingTeam, errorTeam, refreshTeam } = useTeamsByTeamId(
+    teamID[0]
+  );
+  const isDark = "dark";
 
   useEffect(() => {
     console.log(team);
@@ -23,28 +33,19 @@ export default function TeamDetailTabsLayout() {
 
   if (!team && !loadingTeam && !errorTeam) {
     return (
-      <View
-        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
-      >
-        <Text style={styles.errorText}>Equipo no encontrado</Text>
+      <View style={[styles.container]}>
+        <CustomNoResults message={TEAM_NOT_FOUND_TEXT} onRetry={refreshTeam} />
       </View>
     );
   }
 
   if (loadingTeam) {
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: isDark
-              ? COLORS.background.dark
-              : COLORS.background.light,
-          },
-        ]}
-      >
-        <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
-      </View>
+      <CustomBackground>
+        <View style={[styles.containerLoading]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
     );
   }
 
@@ -66,70 +67,81 @@ export default function TeamDetailTabsLayout() {
   }
 
   return (
-    <View style={styles.container}>
-      {/* Team Header - Fixed outside navigator */}
-      <View style={styles.teamHeader}>
-        <Image source={{ uri: team?.shield }} style={styles.headerShield} />
-        <View style={styles.teamInfo}>
-          <Text style={styles.teamHeaderName}>{team?.name}</Text>
-          <Text style={styles.teamCategory}>
-            Categoría {team?.category.description} - {team?.zone.description}
-          </Text>
+    <CustomBackground>
+      <View style={styles.container}>
+        {/* Team Header - Fixed outside navigator */}
+        <ImageBackground
+          source={require("@/assets/background_header.png")}
+          imageStyle={{ opacity: BACKGROUND_OPACITY }}
+        >
+          <View style={styles.teamHeader}>
+            <Image source={{ uri: team?.shield }} style={styles.headerShield} />
+            <View style={styles.teamInfo}>
+              <Text style={styles.teamHeaderName}>{team?.name}</Text>
+              <Text style={styles.teamCategory}>
+                Categoría {team?.category.description} -{" "}
+                {team?.zone.description}
+              </Text>
+            </View>
+          </View>
+        </ImageBackground>
+
+        {/* Navigator - Static below header */}
+        <View style={styles.navigatorContainer}>
+          <MaterialTopTabs
+            screenOptions={{
+              tabBarActiveTintColor: COLORS.tabBar.active,
+              tabBarInactiveTintColor: COLORS.tabBar.inactive,
+              tabBarStyle: {
+                backgroundColor: COLORS.headers.matchTopBar.background,
+              },
+              tabBarIndicatorStyle: {
+                backgroundColor: COLORS.secondary,
+                height: 3,
+              },
+              tabBarLabelStyle: {
+                fontSize: 14,
+                fontWeight: "bold",
+                textTransform: "none",
+              },
+              tabBarPressColor: COLORS.secondary + "20",
+              swipeEnabled: true,
+            }}
+          >
+            <MaterialTopTabs.Screen
+              name="matches"
+              options={{
+                title: "Partidos",
+              }}
+              initialParams={{ teamID: teamID }}
+            />
+            <MaterialTopTabs.Screen
+              name="standings"
+              options={{
+                title: "Tabla",
+              }}
+              initialParams={{ teamID: teamID }}
+            />
+          </MaterialTopTabs>
         </View>
       </View>
-
-      {/* Navigator - Static below header */}
-      <View style={styles.navigatorContainer}>
-        <MaterialTopTabs
-          screenOptions={{
-            tabBarActiveTintColor: COLORS.tabBar.active,
-            tabBarInactiveTintColor: COLORS.tabBar.inactive,
-            tabBarStyle: {
-              backgroundColor: COLORS.headers.matchTopBar.background,
-            },
-            tabBarIndicatorStyle: {
-              backgroundColor: COLORS.secondary,
-              height: 3,
-            },
-            tabBarLabelStyle: {
-              fontSize: 14,
-              fontWeight: "bold",
-              textTransform: "none",
-            },
-            tabBarPressColor: COLORS.secondary + "20",
-            swipeEnabled: true,
-          }}
-        >
-          <MaterialTopTabs.Screen
-            name="matches"
-            options={{
-              title: "Partidos",
-            }}
-            initialParams={{ teamID: teamID }}
-          />
-          <MaterialTopTabs.Screen
-            name="standings"
-            options={{
-              title: "Tabla",
-            }}
-            initialParams={{ teamID: teamID }}
-          />
-        </MaterialTopTabs>
-      </View>
-    </View>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.headers.matchDetail.background,
+    width: "100%",
+  },
+  containerLoading: {
+    flex: 1,
+    alignItems: "center",
   },
   teamHeader: {
     flexDirection: "row",
     alignItems: "center",
     padding: SPACING.lg,
-    backgroundColor: COLORS.primary,
   },
   headerShield: {
     width: 60,
@@ -142,12 +154,13 @@ const styles = StyleSheet.create({
   teamHeaderName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: COLORS.headers.matchDetail.title,
+    color: COLORS.text.dark.primary,
     marginBottom: 4,
   },
   teamCategory: {
     fontSize: 14,
-    color: COLORS.headers.matchDetail.subtitle,
+    fontWeight: "bold",
+    color: COLORS.text.dark.secondary,
   },
   navigatorContainer: {
     flex: 1,

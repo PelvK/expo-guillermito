@@ -61,7 +61,9 @@ export const COLORS = {
   card: {
     primary: "#ffeba4",
     secondary: "#473803",
-    terciary: "#e9be27"
+    terciary: "#e9be27",
+    gold: "#e9be27",
+    silver: "#BDBDBD"
   },
   
   positionCard: {
@@ -94,6 +96,13 @@ export const COLORS = {
     },
     matchTopBar: {
       background: "#1D1D1D",
+    },
+    cupsTopBar: {
+      background: "#1D1D1D",
+      selected: {
+        gold: "#e2cf00",
+        silver: "#b0b0b0",
+      }
     }
   }
 };

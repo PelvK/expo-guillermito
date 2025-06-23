@@ -28,5 +28,5 @@ export function useTeamsByCategory(categoryID: number) {
   const refreshTeams = () => {
     getTeams();
   };
-  return { teams, loading, error, refreshTeams };
+  return { teams, loadingTeams: loading, errorTeams: error, refreshTeams };
 }

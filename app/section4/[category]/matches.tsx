@@ -9,96 +9,65 @@ import {
 } from "react-native";
 import { useColorScheme } from "react-native";
 import { COLORS, SPACING, MATCHES_LIST } from "@/constants";
-import {
-  Calendar as CalendarIcon,
-  Clock as ClockIcon,
-  MapPin as MapPinIcon,
-} from "lucide-react-native";
+import { MatchCard } from "@/components/cards/MatchCard";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
+import { useLocalSearchParams } from "expo-router";
+import { useMatchsByCategory } from "@/hooks/matchs";
+import { CustomBackground } from "@/components/CustomBackground";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 export default function GroupMatchesScreen() {
-  const colorScheme = useColorScheme();
+  const example = useSafeAreaFrame();
+  const { category } = useLocalSearchParams();
+  const { matchs, loadingMatchs, errorMatchs, refreshMatchs } = useMatchsByCategory(
+    Number(category[0])
+  );
   const isDark = "dark";
 
-  const renderMatch = (match: any) => (
-    <View
-      key={match.id}
-      style={[
-        styles.matchCard,
-        {
-          backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
-        },
-      ]}
-    >
-      <View style={styles.matchHeader}>
-        <View style={styles.dateTimeContainer}>
-          <View style={styles.dateTime}>
-            <CalendarIcon size={16} color="#FFF" />
-            <Text style={styles.dateText}>{match.date}</Text>
-          </View>
-          <View style={styles.dateTime}>
-            <ClockIcon size={16} color="#FFF" />
-            <Text style={styles.timeText}>{match.time}</Text>
-          </View>
+  if (loadingMatchs) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading />
         </View>
-        <View style={styles.venueContainer}>
-          <MapPinIcon size={16} color="#FFF" />
-          <Text style={styles.venueText}>{match.venue}</Text>
-        </View>
+      </CustomBackground>
+    );
+  }
+  if (errorMatchs) {
+    return (
+      <View
+        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
+      >
+        <Text style={styles.errorText}>Error al cargar los partidos</Text>
       </View>
-
-      <View style={styles.matchContent}>
-
-        <View style={styles.vsContainer}>
-          <Text style={styles.vsText}>VS</Text>
-          {match.result && (
-            <Text style={styles.resultText}>{match.result}</Text>
-          )}
-          {match.status === "upcoming" && (
-            <Text style={styles.upcomingText}>Próximo</Text>
-          )}
-        </View>
-
-        <View style={styles.teamContainer}>
-          <Image
-            source={{ uri: match.opponentShield }}
-            style={styles.teamShield}
-          />
-          <Text style={styles.teamName} numberOfLines={2}>
-            {match.opponent}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.matchFooter}>
-        <Text style={styles.homeAwayText}>
-          {match.isHome ? "Local" : "Visitante"}
-        </Text>
-      </View>
-    </View>
-  );
+    );
+  }
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-        },
-      ]}
-    >
-      {/* Matches List */}
-      <ScrollView style={styles.matchesList}>
-        {MATCHES_LIST.map(renderMatch)}
-      </ScrollView>
-    </View>
+    <CustomBackground>
+      <View style={[styles.container]}>
+        {/* Matches List */}
+        {matchs && matchs?.length > 0 ? (
+          <ScrollView style={styles.matchesList}>
+            {matchs?.map((item) => {
+              return <MatchCard key={item.ID} item={item} index={item.ID} />;
+            })}
+          </ScrollView>
+        ) : (
+          <View style={[styles.container]}>
+            <CustomNoResults onRetry={refreshMatchs} />
+          </View>
+        )}
+      </View>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
   },
   teamHeader: {
     flexDirection: "row",
@@ -129,7 +98,11 @@ const styles = StyleSheet.create({
   },
   matchesList: {
     flex: 1,
-    padding: SPACING.md,
+    paddingBottom: SPACING.md,
+    paddingStart: SPACING.md,
+    paddingEnd: SPACING.md,
+    paddingTop: SPACING.md,
+    marginBottom: SPACING.md,
   },
   sectionTitle: {
     fontSize: 24,
@@ -233,6 +206,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 18,
     textAlign: "center",
-    marginTop: 50,
+    verticalAlign: "middle",
+    flex: 1,
   },
 });

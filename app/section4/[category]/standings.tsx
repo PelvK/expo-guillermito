@@ -3,302 +3,128 @@ import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
 import { COLORS, SPACING, TEAM_LIST } from "@/constants";
-
-// Mock data for standings
-const STANDINGS_DATA = [
-  {
-    position: 1,
-    team: "CLUB ATLÉTICO SARMIENTO DE HUMBOLDT",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    played: 10,
-    won: 8,
-    drawn: 1,
-    lost: 1,
-    goalsFor: 25,
-    goalsAgainst: 8,
-    goalDifference: 17,
-    points: 25,
-  },
-  {
-    position: 2,
-    team: "CLUB JUVENTUD UNIDA DE HUMBOLDT",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    played: 10,
-    won: 7,
-    drawn: 2,
-    lost: 1,
-    goalsFor: 22,
-    goalsAgainst: 10,
-    goalDifference: 12,
-    points: 23,
-  },
-  {
-    position: 3,
-    team: "CLUB ATLÉTICO SAN LORENZO",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    played: 10,
-    won: 6,
-    drawn: 3,
-    lost: 1,
-    goalsFor: 18,
-    goalsAgainst: 12,
-    goalDifference: 6,
-    points: 21,
-  },
-  {
-    position: 4,
-    team: "CLUB ATLÉTICO PILAR",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    played: 10,
-    won: 5,
-    drawn: 2,
-    lost: 3,
-    goalsFor: 16,
-    goalsAgainst: 14,
-    goalDifference: 2,
-    points: 17,
-  },
-  {
-    position: 5,
-    team: "CLUB UNIÓN DE SANTA FÉ",
-    shield: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
-    played: 10,
-    won: 2,
-    drawn: 1,
-    lost: 7,
-    goalsFor: 9,
-    goalsAgainst: 21,
-    goalDifference: -12,
-    points: 7,
-  },
-];
+import { usePositionsByCategory } from "@/hooks/positions/usePositionByCategory";
+import { PositionCard } from "@/components/cards/PositionCard";
+import { CustomBackground } from "@/components/CustomBackground";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 export default function GroupStandingsScreen() {
-  const { team } = useLocalSearchParams();
+  const { category } = useLocalSearchParams();
+  const { positions, loadingPositions, errorPositions, refreshPositions } =
+    usePositionsByCategory(Number(category[0]));
+
   const colorScheme = useColorScheme();
   const isDark = "dark";
+  if (loadingPositions) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
+    );
+  }
 
-  // Find the team data
-  const team_r = TEAM_LIST.find((t) => t.id === team);
-
-  if (!team_r) {
+  if (errorPositions) {
     return (
       <View
         style={[styles.container, { backgroundColor: COLORS.background.dark }]}
       >
-        <Text style={styles.errorText}>Equipo no encontrado</Text>
+        <Text style={styles.errorText}>Error al cargar las posiciones</Text>
       </View>
     );
   }
 
-  const renderStandingRow = (standing: any, index: number) => {
-    const isCurrentTeam = standing.team === team_r.name;
-
-    return (
-      <View
-        key={index}
-        style={[
-          styles.standingRow,
-          isCurrentTeam && styles.currentTeamRow,
-          {
-            backgroundColor: isCurrentTeam
-              ? COLORS.secondary
-              : isDark
-                ? COLORS.primary
-                : COLORS.secondary,
-          },
-        ]}
-      >
-        <Text
-          style={[styles.position, isCurrentTeam && styles.currentTeamText]}
-        >
-          {standing.position}
-        </Text>
-
-   
-        <Text style={[styles.stat, isCurrentTeam && styles.currentTeamText]}>
-          {standing.played}
-        </Text>
-        <Text style={[styles.stat, isCurrentTeam && styles.currentTeamText]}>
-          {standing.won}
-        </Text>
-        <Text style={[styles.stat, isCurrentTeam && styles.currentTeamText]}>
-          {standing.drawn}
-        </Text>
-        <Text style={[styles.stat, isCurrentTeam && styles.currentTeamText]}>
-          {standing.lost}
-        </Text>
-        <Text style={[styles.stat, isCurrentTeam && styles.currentTeamText]}>
-          {standing.goalDifference > 0
-            ? `+${standing.goalDifference}`
-            : standing.goalDifference}
-        </Text>
-        <Text style={[styles.points, isCurrentTeam && styles.currentTeamText]}>
-          {standing.points}
-        </Text>
-      </View>
-    );
-  };
-
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-        },
-      ]}
-    >
-      {/* Standings Table */}
-      <ScrollView style={styles.standingsContainer}>
-        <Text style={styles.sectionTitle}>Tabla de Posiciones</Text>
+    <CustomBackground>
+      <View style={[styles.container]}>
+        {/* Standings Table */}
+        {positions && positions.length > 0 ? (
+          <ScrollView style={styles.standingsContainer}>
+            {/* Table Header */}
 
-        {/* Table Header */}
-        <View style={styles.tableHeader}>
-          <Text style={styles.headerText}>Pos</Text>
-          <Text style={[styles.headerText, styles.teamColumn]}>Equipo</Text>
-          <Text style={styles.headerText}>PJ</Text>
-          <Text style={styles.headerText}>G</Text>
-          <Text style={styles.headerText}>E</Text>
-          <Text style={styles.headerText}>P</Text>
-          <Text style={styles.headerText}>DG</Text>
-          <Text style={styles.headerText}>Pts</Text>
-        </View>
-
-        {/* Table Rows */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.tableBody}>
-            {STANDINGS_DATA.map(renderStandingRow)}
+            <View style={styles.tableBody}>
+              {positions?.map((positionList) => (
+                <View key={positionList.zone.id}>
+                  <Text style={styles.zoneHeaderText}>
+                    {positionList.zone.description}
+                  </Text>
+                  <View style={styles.tableHeader}>
+                    <Text style={[styles.headerText, { flex: 1 }]}>Pos</Text>
+                    <Text style={[styles.headerText, { flex: 7 }]}>Equipo</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>PJ</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>G</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>E</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>P</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>GF</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>GC</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>+/-</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>Pts</Text>
+                  </View>
+                  {positionList.positions.map((position) => (
+                    <PositionCard
+                      item={position}
+                      key={position.ID}
+                      index={position.ID}
+                      isCurrentTeam={false}
+                    />
+                  ))}
+                </View>
+              ))}
+            </View>
+          </ScrollView>
+        ) : (
+          <View style={[styles.container]}>
+            <CustomNoResults onRetry={refreshPositions} />
           </View>
-        </ScrollView>
-      </ScrollView>
-    </View>
+        )}
+      </View>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  teamHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: SPACING.lg,
-    backgroundColor: COLORS.primary,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.secondary,
-  },
-  headerShield: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginRight: SPACING.md,
-  },
-  teamHeaderInfo: {
-    flex: 1,
-  },
-  teamHeaderName: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFF",
-    marginBottom: 4,
-  },
-  teamCategory: {
-    fontSize: 14,
-    color: "#CCC",
+    width: "100%",
   },
   standingsContainer: {
     flex: 1,
     padding: SPACING.md,
   },
-  sectionTitle: {
-    fontSize: 24,
+  zoneHeaderText: {
+    color: COLORS.text.light.primary,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#FFF",
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.sm,
     textAlign: "center",
+    paddingTop: SPACING.lg,
   },
   tableHeader: {
     flexDirection: "row",
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.headers.positionTable.background,
     paddingVertical: SPACING.sm,
     paddingHorizontal: SPACING.xs,
-    borderRadius: 8,
-    marginBottom: SPACING.sm,
-    minWidth: 600,
-  },
-  headerText: {
-    color: "#000",
-    fontWeight: "bold",
-    fontSize: 12,
-    textAlign: "center",
-    width: 40,
-  },
-  teamColumn: {
-    width: 200,
-    textAlign: "left",
-  },
-  tableBody: {
-    minWidth: 600,
-  },
-  standingRow: {
-    flexDirection: "row",
-    paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.xs,
-    marginBottom: 2,
-    borderRadius: 6,
-    alignItems: "center",
-  },
-  currentTeamRow: {
-    borderWidth: 2,
-    borderColor: "#FFD700",
-  },
-  position: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 14,
-    textAlign: "center",
-    width: 40,
-  },
-  teamInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: 200,
-  },
-  teamShield: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    marginRight: 8,
-  },
-  teamName: {
-    color: "#FFF",
-    fontSize: 12,
-    fontWeight: "500",
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     flex: 1,
   },
-  stat: {
-    color: "#FFF",
+  headerText: {
+    color: COLORS.headers.positionTable.font,
+    fontWeight: "bold",
     fontSize: 12,
     textAlign: "center",
-    width: 40,
+    flex: 1,
   },
-  points: {
-    color: "#FFF",
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    width: 40,
-  },
-  currentTeamText: {
-    color: "#000",
+  tableBody: {
+    flex: 1,
   },
   errorText: {
-    color: "#FFF",
+    color: COLORS.text.light.primary,
     fontSize: 18,
     textAlign: "center",
-    marginTop: 50,
+    verticalAlign: "middle",
+    flex: 1,
   },
 });

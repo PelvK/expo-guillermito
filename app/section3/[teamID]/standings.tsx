@@ -6,6 +6,7 @@ import { COLORS, POSITIONS_LIST, SPACING } from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
 import { usePositionsByTeamId } from "@/hooks/positions";
 import { PositionCard } from "@/components/cards/PositionCard";
+import { CustomBackground } from "@/components/CustomBackground";
 
 export default function TeamStandingsScreen() {
   const { teamID } = useLocalSearchParams();
@@ -17,33 +18,29 @@ export default function TeamStandingsScreen() {
   const isDark = "dark";
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-        },
-      ]}
-    >
-      {/* Standings Table */}
-      <ScrollView style={styles.standingsContainer}>
-        {/* Table Header */}
-        <View style={styles.tableHeader}>
-          <Text style={[styles.headerText, {flex: 1}]}>Pos</Text>
-          <Text style={[styles.headerText, {flex: 7}]}>Equipo</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>PJ</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>G</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>E</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>P</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>GF</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>GC</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>+/-</Text>
-          <Text style={[styles.headerText, {flex: 1}]}>Pts</Text>
-        </View>
+    <CustomBackground>
+      <View
+        style={[
+          styles.container
+        ]}
+      >
+        {/* Standings Table */}
+        <ScrollView style={styles.standingsContainer}>
+          {/* Table Header */}
+          <View style={styles.tableHeader}>
+            <Text style={[styles.headerText, { flex: 1 }]}>Pos</Text>
+            <Text style={[styles.headerText, { flex: 7 }]}>Equipo</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>PJ</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>G</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>E</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>P</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>GF</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>GC</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>+/-</Text>
+            <Text style={[styles.headerText, { flex: 1 }]}>Pts</Text>
+          </View>
 
-         <View style={styles.tableBody}>
+          <View style={styles.tableBody}>
             {positions?.map((position) => (
               <PositionCard
                 item={position}
@@ -53,14 +50,16 @@ export default function TeamStandingsScreen() {
               />
             ))}
           </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%"
   },
   standingsContainer: {
     flex: 1,

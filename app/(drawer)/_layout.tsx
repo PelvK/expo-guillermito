@@ -15,7 +15,7 @@ export default function DrawerLayout() {
         drawerActiveTintColor: COLORS.drawer.active,
         drawerInactiveTintColor: COLORS.drawer.inactive,
         drawerStyle: {
-          backgroundColor: isDark ? COLORS.drawer.backColor : '#FFFFFF',
+          backgroundColor: "#000",
         },
         headerStyle: {
           backgroundColor: isDark ? COLORS.primary : '#FFFFFF',

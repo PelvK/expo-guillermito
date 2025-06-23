@@ -1,10 +1,10 @@
-import React from "react";
+import React, { act } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, TEAM_LIST } from "@/constants/theme";
+import { COLORS, SPACING } from "@/constants/theme";
 import {
   CalendarCheck as CalendarCheckIcon,
   Trophy as TrophyIcon,
@@ -38,7 +38,7 @@ export default function GroupDetailsTabsLayout() {
             tabBarActiveTintColor: COLORS.tabBar.active,
             tabBarInactiveTintColor: COLORS.tabBar.inactive,
             tabBarStyle: {
-              backgroundColor: isDark ? COLORS.primary : "#FFFFFF",
+              backgroundColor: COLORS.headers.cupsTopBar.background,
             },
             tabBarIndicatorStyle: {
               backgroundColor: COLORS.secondary,
@@ -57,15 +57,21 @@ export default function GroupDetailsTabsLayout() {
             name="gold"
             options={{
               title: "Copa de Oro",
+              tabBarIcon: ({ color }: { color: string }) => (
+                <TrophyIcon size={20} color={color} />
+              ),
             }}
-            initialParams={{ category: category }}
+            initialParams={{ category: Number(category[0]) }}
           />
           <MaterialTopTabs.Screen
             name="silver"
             options={{
               title: "Copa de Plata",
+              tabBarIcon: ({ color }: { color: string }) => (
+                <TrophyIcon size={20} color={color} />
+              ),
             }}
-            initialParams={{ category: category }}
+            initialParams={{ category: Number(category[0]) }}
           />
         </MaterialTopTabs>
       </View>

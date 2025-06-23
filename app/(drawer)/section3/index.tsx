@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { useRouter } from "expo-router";
 //import { ChevronRight } from 'lucide-react-native';
@@ -14,10 +15,14 @@ import { useColorScheme } from "react-native";
 import { CATEGORIES_LIST, COLORS, FONT_SIZES, SHADOWS } from "@/constants";
 import { TeamCard } from "@/components/cards/TeamCard";
 import { useTeamsByCategory } from "@/hooks/teams";
+import { CustomBackground } from "@/components/CustomBackground";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 export default function Section3Screen() {
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
-  const { teams, loading, error } = useTeamsByCategory(selectedCategory);
+  const { teams, loadingTeams, errorTeams, refreshTeams } =
+    useTeamsByCategory(selectedCategory);
   const isDark = "dark";
 
   useEffect(() => {
@@ -25,97 +30,61 @@ export default function Section3Screen() {
   }, [selectedCategory]);
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-        },
-      ]}
-    >
-      {/* Scroll horizontal */}
-      <View style={styles.containerCategoryButton}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {CATEGORIES_LIST.map((category) => (
-            <TouchableOpacity
-              key={category.id}
-              style={[
-                styles.categoryButton,
-                {
-                  backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
-                  ...SHADOWS[isDark ? "dark" : "light"].medium,
-                },
-              ]}
-              onPress={() => setSelectedCategory(category.id)}
-            >
-              <Text
+    <CustomBackground>
+      <View style={[styles.container]}>
+        {/* Scroll horizontal */}
+        <View style={styles.containerCategoryButton}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {CATEGORIES_LIST.map((category) => (
+              <TouchableOpacity
+                key={category.id}
                 style={[
-                  styles.categoryText,
+                  styles.categoryButton,
                   {
-                    color: isDark
-                      ? COLORS.text.dark.primary
-                      : COLORS.text.light.primary,
+                    backgroundColor: isDark ? COLORS.secondary : COLORS.primary,
+                    ...SHADOWS[isDark ? "dark" : "light"].medium,
                   },
                 ]}
+                onPress={() => setSelectedCategory(category.id)}
               >
-                {category.description}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-
-      {/* Scroll vertical que ocupa el resto */}
-      {loading && (
-        <View
-          style={[
-            styles.container,
-            {
-              backgroundColor: isDark
-                ? COLORS.background.dark
-                : COLORS.background.light,
-            },
-          ]}
-        >
-          <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
-        </View>
-      )}
-
-      {error && (
-        <View
-          style={[
-            styles.container,
-            {
-              backgroundColor: isDark
-                ? COLORS.background.dark
-                : COLORS.background.light,
-            },
-          ]}
-        >
-          <Text style={{ color: "red", marginBottom: 8 }}>Error al traer</Text>
-        </View>
-      )}
-
-      {!error && !loading && (
-        <View style={styles.matchListContainer}>
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            {teams?.length === 0 ? (
-              <Text
-                style={{ textAlign: "center", marginTop: 20, color: "#fff" }}
-              >
-                No hay equipos disponibles.
-              </Text>
-            ) : (
-              teams?.map((team) => (
-                <TeamCard key={team.id} item={team} index={team.id} />
-              ))
-            )}
+                <Text style={[styles.categoryText]}>
+                  {category.description}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
         </View>
-      )}
-    </View>
+
+        {/* Scroll vertical que ocupa el resto */}
+        {loadingTeams && (
+          <View style={[styles.containerLoading]}>
+            <CustomLoading/>
+          </View>
+        )}
+
+        {errorTeams && (
+          <View style={[styles.container]}>
+            <Text style={{ color: "red", marginBottom: 8 }}>
+              Error al traer
+            </Text>
+          </View>
+        )}
+
+        {!errorTeams && !loadingTeams && (
+          <View style={styles.matchListContainer}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+              {teams?.length === 0 ? (
+                <CustomNoResults onRetry={refreshTeams}/>
+              ) : (
+                teams?.map((team) => (
+                  <TeamCard key={team.id} item={team} index={team.id} />
+                ))
+              )}
+            </ScrollView>
+          </View>
+        )}
+      </View>
+    </CustomBackground>
   );
 }
 
@@ -123,6 +92,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
+  },
+  containerLoading: {
+    flex: 1,
+    padding: 8,
+    alignItems: "center"
   },
   containerCategoryButton: {
     flexDirection: "row",

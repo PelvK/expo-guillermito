@@ -1,4 +1,4 @@
-import { Category, Match, Team } from "@/libs/types";
+import { Category, DAY, Match, PositionUnionZone, Team } from "@/libs/types";
 import { Position } from "@/libs/types/Position";
 
 export const CATEGORIES_LIST: Category[] = [
@@ -142,7 +142,7 @@ export const MATCHES_LIST: Match[] = [
     visitTeam: TEAM_LIST[1],
     localResult: 2,
     visitResult: 1,
-    date: "2025-07-19",
+    date: DAY.FRIDAY,
     hour: "15:30",
     legend: "Zona A",
     place: {
@@ -158,7 +158,7 @@ export const MATCHES_LIST: Match[] = [
     visitTeam: TEAM_LIST[3],
     localResult: 3,
     visitResult: 3,
-    date: "2025-07-19",
+    date: DAY.FRIDAY,
     hour: "15:30",
     legend: "Zona B",
     place: {
@@ -174,7 +174,7 @@ export const MATCHES_LIST: Match[] = [
     visitTeam: TEAM_LIST[2],
     localResult: 2,
     visitResult: 1,
-    date: "2025-07-20",
+    date: DAY.SATURDAY,
     hour: "15:30",
     legend: "Zona B",
     place: {
@@ -190,7 +190,7 @@ export const MATCHES_LIST: Match[] = [
     visitTeam: TEAM_LIST[3],
     localResult: 3,
     visitResult: 3,
-    date: "2025-07-20",
+    date: DAY.SATURDAY,
     hour: "15:30",
     legend: "Zona C",
     place: {
@@ -206,7 +206,7 @@ export const MATCHES_LIST: Match[] = [
     visitTeam: TEAM_LIST[5],
     localResult: 2,
     visitResult: 1,
-    date: "2025-07-19",
+    date: DAY.FRIDAY,
     hour: "15:30",
     legend: "Zona C",
     place: {
@@ -222,7 +222,7 @@ export const MATCHES_LIST: Match[] = [
     visitTeam: TEAM_LIST[8],
     localResult: 3,
     visitResult: 3,
-    date: "2025-07-19",
+    date: DAY.FRIDAY,
     hour: "15:30",
     legend: "Zona D",
     place: {
@@ -231,6 +231,105 @@ export const MATCHES_LIST: Match[] = [
     },
     category: 3,
     type: 1,
+  },
+];
+
+export const MATCHES_CUP_LIST: Match[] = [
+  {
+    ID: 1,
+    localTeam: TEAM_LIST[0],
+    visitTeam: TEAM_LIST[1],
+    localResult: 2,
+    visitResult: 1,
+    date: DAY.FRIDAY,
+    hour: "15:30",
+    legend: "Zona A",
+    place: {
+      id: 1,
+      description: "Cancha 1",
+    },
+    category: 1,
+    type: 2,
+  },
+  {
+    ID: 2,
+    localTeam: TEAM_LIST[2],
+    visitTeam: TEAM_LIST[3],
+    localResult: 3,
+    visitResult: 3,
+    date: DAY.FRIDAY,
+    hour: "15:30",
+    legend: "Zona B",
+    place: {
+      id: 1,
+      description: "Cancha 1",
+    },
+    category: 1,
+    type: 3,
+  },
+  {
+    ID: 3,
+    localTeam: TEAM_LIST[0],
+    visitTeam: TEAM_LIST[2],
+    localResult: 2,
+    visitResult: 1,
+    date: DAY.SATURDAY,
+    hour: "15:30",
+    legend: "Zona B",
+    place: {
+      id: 2,
+      description: "Cancha 2",
+    },
+    category: 1,
+    type: 4,
+  },
+  {
+    ID: 4,
+    localTeam: TEAM_LIST[1],
+    visitTeam: TEAM_LIST[3],
+    localResult: 3,
+    visitResult: 3,
+    date: DAY.SATURDAY,
+    hour: "15:30",
+    legend: "Zona C",
+    place: {
+      id: 3,
+      description: "Cancha 3",
+    },
+    category: 1,
+    type: 5,
+  },
+  {
+    ID: 5,
+    localTeam: TEAM_LIST[4],
+    visitTeam: TEAM_LIST[5],
+    localResult: 2,
+    visitResult: 1,
+    date: DAY.FRIDAY,
+    hour: "15:30",
+    legend: "Zona C",
+    place: {
+      id: 2,
+      description: "Cancha 2",
+    },
+    category: 2,
+    type: 1,
+  },
+  {
+    ID: 6,
+    localTeam: TEAM_LIST[7],
+    visitTeam: TEAM_LIST[8],
+    localResult: 3,
+    visitResult: 3,
+    date: DAY.FRIDAY,
+    hour: "15:30",
+    legend: "Zona D",
+    place: {
+      id: 1,
+      description: "Cancha 1",
+    },
+    category: 3,
+    type: 6,
   },
 ];
 
@@ -303,5 +402,154 @@ export const POSITIONS_LIST: Position[] = [
       difference: -5,
     },
     points: 3,
+  },
+];
+
+export const POSITIONS_UNION_ZONE_LIST: PositionUnionZone[] = [
+  {
+    zone: CATEGORIES_LIST[0].zones![0],
+    positions: [
+      {
+        ID: 1,
+        position: 1,
+        team: TEAM_LIST[0],
+        matchs: {
+          played: 4,
+          won: 3,
+          drawn: 1,
+          lost: 0,
+        },
+        goals: {
+          favor: 15,
+          against: 4,
+          difference: 11,
+        },
+        points: 10,
+      },
+      {
+        ID: 2,
+        position: 2,
+        team: TEAM_LIST[1],
+        matchs: {
+          played: 4,
+          won: 2,
+          drawn: 2,
+          lost: 0,
+        },
+        goals: {
+          favor: 11,
+          against: 6,
+          difference: 5,
+        },
+        points: 8,
+      },
+      {
+        ID: 3,
+        position: 3,
+        team: TEAM_LIST[2],
+        matchs: {
+          played: 4,
+          won: 2,
+          drawn: 1,
+          lost: 1,
+        },
+        goals: {
+          favor: 9,
+          against: 9,
+          difference: 0,
+        },
+        points: 7,
+      },
+      {
+        ID: 4,
+        position: 4,
+        team: TEAM_LIST[3],
+        matchs: {
+          played: 4,
+          won: 1,
+          drawn: 0,
+          lost: 3,
+        },
+        goals: {
+          favor: 4,
+          against: 9,
+          difference: -5,
+        },
+        points: 3,
+      },
+    ],
+  },
+  {
+    zone: CATEGORIES_LIST[0].zones![1],
+    positions: [
+      {
+        ID: 5,
+        position: 1,
+        team: TEAM_LIST[4],
+        matchs: {
+          played: 4,
+          won: 3,
+          drawn: 1,
+          lost: 0,
+        },
+        goals: {
+          favor: 15,
+          against: 4,
+          difference: 11,
+        },
+        points: 10,
+      },
+      {
+        ID: 6,
+        position: 2,
+        team: TEAM_LIST[5],
+        matchs: {
+          played: 4,
+          won: 2,
+          drawn: 2,
+          lost: 0,
+        },
+        goals: {
+          favor: 11,
+          against: 6,
+          difference: 5,
+        },
+        points: 8,
+      },
+      {
+        ID: 7,
+        position: 3,
+        team: TEAM_LIST[6],
+        matchs: {
+          played: 4,
+          won: 2,
+          drawn: 1,
+          lost: 1,
+        },
+        goals: {
+          favor: 9,
+          against: 9,
+          difference: 0,
+        },
+        points: 7,
+      },
+      {
+        ID: 8,
+        position: 4,
+        team: TEAM_LIST[7],
+        matchs: {
+          played: 4,
+          won: 1,
+          drawn: 0,
+          lost: 3,
+        },
+        goals: {
+          favor: 4,
+          against: 9,
+          difference: -5,
+        },
+        points: 3,
+      },
+    ],
   },
 ];

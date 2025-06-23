@@ -5,89 +5,72 @@ import { useColorScheme } from "react-native";
 import { COLORS, SPACING } from "@/constants/theme";
 import { useMatchsByCategoryAndDay } from "@/hooks/matchs";
 import { MatchCard } from "@/components/cards/MatchCard";
+import { CustomBackground } from "@/components/CustomBackground";
+import { DAY } from "@/libs/types";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 export default function SaturdayScreen() {
   const { category } = useLocalSearchParams();
-  const { matchs, loading, error } = useMatchsByCategoryAndDay(
+  const { matchs, loading, error, refreshMatchs } = useMatchsByCategoryAndDay(
     Number(category),
-    "2025-07-20"
+    DAY.SATURDAY
   );
   const colorScheme = useColorScheme();
   const isDark = "dark"; //colorScheme === 'dark';
 
   if (loading) {
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: isDark
-              ? COLORS.background.dark
-              : COLORS.background.light,
-          },
-        ]}
-      >
-        <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
-      </View>
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading/>
+        </View>
+      </CustomBackground>
     );
   }
 
   if (error) {
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: isDark
-              ? COLORS.background.dark
-              : COLORS.background.light,
-          },
-        ]}
-      >
-        <Text style={{ color: "red", marginBottom: 8 }}>Error al traer</Text>
-      </View>
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <Text style={{ color: "red", marginBottom: 8 }}>Error al traer</Text>
+        </View>
+      </CustomBackground>
     );
   }
 
   if (!loading && !error && matchs?.length == 0) {
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: isDark
-              ? COLORS.background.dark
-              : COLORS.background.light,
-          },
-        ]}
-      >
-        <Text style={{ color: "white", marginBottom: 8 }}>No hay nada...</Text>
-      </View>
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomNoResults onRetry={refreshMatchs}/>
+        </View>
+      </CustomBackground>
     );
   }
 
   return (
-    <ScrollView
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-        },
-      ]}
-    >
-      {matchs?.map((match) => (
-        <MatchCard item={match} index={match.ID} key={match.ID} />
-      ))}
-    </ScrollView>
+    <CustomBackground>
+      <ScrollView style={[styles.containerScroll]}>
+        {matchs?.map((match) => (
+          <MatchCard item={match} index={match.ID} key={match.ID} />
+        ))}
+      </ScrollView>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  containerScroll: {
+    flex: 1,
+    width: "100%",
+    padding: SPACING.md,
+  },
   container: {
     flex: 1,
+    width: "100%",
     padding: SPACING.md,
+    alignItems: "center"
   },
   title: {
     fontSize: 24,

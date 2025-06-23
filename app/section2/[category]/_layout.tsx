@@ -14,10 +14,10 @@ export default function CategoryTabsLayout() {
         tabBarActiveTintColor: COLORS.tabBar.active,
         tabBarInactiveTintColor: COLORS.tabBar.inactive,
         tabBarStyle: {
-          backgroundColor: isDark ? COLORS.primary : "#FFFFFF",
+          backgroundColor: COLORS.primary
         },
         headerStyle: {
-          backgroundColor: isDark ? "#111827" : "#F9FAFB",
+          backgroundColor: COLORS.primary,
         },
         headerTitleStyle: {
           color: isDark ? "#FFFFFF" : "#1F2937",

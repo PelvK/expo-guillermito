@@ -7,16 +7,17 @@ import {
   Image,
 } from "react-native";
 import { useRef, useEffect } from "react";
-import { Match, Team } from "@mytypes";
+import { CUP, Match, Team } from "@mytypes";
 import { COLORS, FONT_SIZES, SPACING } from "@/constants/theme";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react-native";
 
 type MatchCardProps = {
   item: Match;
   index: number;
+  type?: CUP;
 };
 
-export function MatchCard({ item, index }: MatchCardProps) {
+export function MatchCard({ item, index, type }: MatchCardProps) {
   const opacity = useRef(new Animated.Value(0)).current;
   const isDark = "dark";
 
@@ -37,12 +38,37 @@ export function MatchCard({ item, index }: MatchCardProps) {
         style={[
           styles.matchCard,
           {
-            backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary
+            backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary,
           },
         ]}
       >
         {/*Card header space*/}
         <View style={styles.matchHeader}>
+          {item.type !== 1 && (
+            <View
+              style={{
+                backgroundColor:
+                  type === CUP.GOLD ? COLORS.card.gold : COLORS.card.silver,
+                height: 18,
+                width: 18,
+                borderRadius: 9,
+                position: "absolute",
+                alignItems: "center",
+                left: 0,
+                margin: 5
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  verticalAlign: "middle",
+                }}
+              >
+                {item.type}
+              </Text>
+            </View>
+          )}
           <View style={styles.legendContainer}>
             <Text style={styles.legendText}>{item.legend}</Text>
           </View>
@@ -63,7 +89,7 @@ export function MatchCard({ item, index }: MatchCardProps) {
           {/*Center space*/}
           <View style={styles.vsContainer}>
             {item.localResult && item.visitResult && (
-              <Text style={{verticalAlign: "top" }}>Finalizado</Text>
+              <Text style={{ verticalAlign: "top" }}>Finalizado</Text>
             )}
             <Text style={styles.vsText}>VS</Text>
             {item.localResult && item.visitResult && (
@@ -261,7 +287,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   hourContainer: {
     flexDirection: "row",
@@ -332,8 +358,8 @@ const styles = StyleSheet.create({
   },
   backResult: {
     backgroundColor: COLORS.card.terciary,
-    flexDirection: "row", 
+    flexDirection: "row",
     paddingHorizontal: 6,
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 });

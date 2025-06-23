@@ -2,75 +2,75 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING, MATCHES_LIST } from "@/constants";
+import {
+  COLORS,
+  SPACING,
+  MATCHES_LIST,
+  TEAM_NOT_FOUND_TEXT,
+} from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
 import { MatchCard } from "@/components/cards/MatchCard";
 import { useMatchsByTeamId } from "@/hooks/matchs";
+import { CustomBackground } from "@/components/CustomBackground";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomNoResults } from "@/components/CustomNoResult";
 
 export default function TeamMatchesScreen() {
   const { teamID } = useLocalSearchParams();
-  const { matchs, loadingMatch, errorMatch } = useMatchsByTeamId(Number(teamID[0]));
+  const { matchs, loadingMatch, errorMatch, refreshMatchs } = useMatchsByTeamId(
+    Number(teamID[0])
+  );
   const isDark = "dark";
 
   if (errorMatch) {
     return (
-      <View
-        style={[styles.container, { backgroundColor: COLORS.background.dark }]}
-      >
-        <Text style={styles.errorText}>Equipo no encontrado</Text>
-      </View>
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomNoResults onRetry={refreshMatchs} />
+        </View>
+      </CustomBackground>
     );
   }
 
   if (loadingMatch) {
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: isDark
-              ? COLORS.background.dark
-              : COLORS.background.light,
-          },
-        ]}
-      >
-        <Text style={{ color: "white", marginBottom: 8 }}>cargando...</Text>
-      </View>
+      <CustomBackground>
+        <View style={[styles.containerLoading]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
     );
   }
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: isDark
-            ? COLORS.background.dark
-            : COLORS.background.light,
-        },
-      ]}
-    >
-      {/* Matches List */}
-      <ScrollView style={styles.matchesList}>
-        {matchs?.map((item) => (
-          <MatchCard item={item} index={item.ID} key={item.ID} />
-        ))}
-      </ScrollView>
-    </View>
+    <CustomBackground>
+      <View style={[styles.container]}>
+        {/* Matches List */}
+        {matchs && matchs?.length > 0 ? (
+          <ScrollView style={styles.matchesList}>
+            {matchs?.map((item) => (
+              <MatchCard item={item} index={item.ID} key={item.ID} />
+            ))}
+          </ScrollView>
+        ) : (
+          <View style={[styles.containerLoading]}>
+            <CustomNoResults onRetry={refreshMatchs} />
+          </View>
+        )}
+      </View>
+    </CustomBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
   },
-  teamHeader: {
-    flexDirection: "row",
+  containerLoading: {
+    flex: 1,
     alignItems: "center",
-    padding: SPACING.lg,
-    backgroundColor: "red",
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.secondary,
+    verticalAlign: "middle",
   },
   headerShield: {
     width: 60,

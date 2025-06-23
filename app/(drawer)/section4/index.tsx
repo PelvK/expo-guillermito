@@ -11,6 +11,7 @@ import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants";
 import { Bold } from "lucide-react-native";
+import { CustomBackground } from "@/components/CustomBackground";
 
 export default function Section2Screen() {
   const router = useRouter();
@@ -19,14 +20,12 @@ export default function Section2Screen() {
   const isDark = "dark";
   //const isDark = colorScheme === 'dark';
 
-    return (
+  return (
+    <CustomBackground>
       <View
         style={[
           styles.container,
           {
-            backgroundColor: isDark
-              ? COLORS.background.dark
-              : COLORS.background.light,
             paddingBottom: insets.bottom,
           },
         ]}
@@ -39,7 +38,9 @@ export default function Section2Screen() {
               style={[
                 styles.categoryButton,
                 {
-                  backgroundColor: isDark ? COLORS.card.primary : COLORS.card.primary,
+                  backgroundColor: isDark
+                    ? COLORS.card.primary
+                    : COLORS.card.primary,
                   ...SHADOWS[isDark ? "dark" : "light"].medium,
                 },
               ]}
@@ -63,13 +64,15 @@ export default function Section2Screen() {
           ))}
         </ScrollView>
       </View>
-    );
-  }
+    </CustomBackground>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: SPACING.sm,
+    width: "100%",
   },
   title: {
     fontSize: 28,

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'rea
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native';
 import { COLORS } from '@/constants/theme';
+import MapView from 'react-native-maps';
 
 const categories = [
   { id: '1', name: 'Electronics', count: '245 items', image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg' },
@@ -20,7 +21,7 @@ export default function InstalationsScreen() {
   
     return (
       <View style={{backgroundColor: COLORS.background.dark, flex: 1 }}>
-  
+        <MapView style={styles.map} />
       </View>
     )
   return (
@@ -65,6 +66,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
   },
   title: {
     fontSize: 28,
