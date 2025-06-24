@@ -10,6 +10,7 @@ import { useRef, useEffect } from "react";
 import { CUP, Match, Team } from "@mytypes";
 import { COLORS, FONT_SIZES, SPACING } from "@/constants/theme";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react-native";
+import { CustomText } from "../CustomText";
 
 type MatchCardProps = {
   item: Match;
@@ -58,7 +59,7 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
                 margin: 5
               }}
             >
-              <Text
+              <CustomText
                 style={{
                   fontWeight: "bold",
                   textAlign: "center",
@@ -66,11 +67,11 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
                 }}
               >
                 {item.type}
-              </Text>
+              </CustomText>
             </View>
           )}
           <View style={styles.legendContainer}>
-            <Text style={styles.legendText}>{item.legend}</Text>
+            <CustomText style={styles.legendText}>{item.legend}</CustomText>
           </View>
         </View>
 
@@ -81,22 +82,22 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
               source={{ uri: item.localTeam.shield }}
               style={styles.teamShield}
             />
-            <Text style={styles.teamName} numberOfLines={2}>
+            <CustomText style={styles.teamName} numberOfLines={2}>
               {item.localTeam.name}
-            </Text>
+            </CustomText>
           </View>
 
           {/*Center space*/}
           <View style={styles.vsContainer}>
             {item.localResult && item.visitResult && (
-              <Text style={{ verticalAlign: "top" }}>Finalizado</Text>
+              <CustomText style={{ verticalAlign: "top" }}>Finalizado</CustomText>
             )}
-            <Text style={styles.vsText}>VS</Text>
+            <CustomText style={styles.vsText}>VS</CustomText>
             {item.localResult && item.visitResult && (
               <View style={styles.backResult}>
-                <Text style={styles.resultText}>{item.localResult}</Text>
-                <Text style={styles.resultText}>-</Text>
-                <Text style={styles.resultText}>{item.visitResult}</Text>
+                <CustomText style={styles.resultText}>{item.localResult}</CustomText>
+                <CustomText style={styles.resultText}>-</CustomText>
+                <CustomText style={styles.resultText}>{item.visitResult}</CustomText>
               </View>
             )}
           </View>
@@ -107,9 +108,9 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
               source={{ uri: item.visitTeam.shield }}
               style={styles.teamShield}
             />
-            <Text style={styles.teamName} numberOfLines={2}>
+            <CustomText style={styles.teamName} numberOfLines={2}>
               {item.visitTeam.name}
-            </Text>
+            </CustomText>
           </View>
         </View>
 
@@ -117,15 +118,15 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
         <View style={styles.matchFooter}>
           <View style={styles.venueContainer}>
             <MapPinIcon size={16} color="#FFF" />
-            <Text style={styles.venueText}>{item.place.description}</Text>
+            <CustomText style={styles.venueText}>{item.place.description}</CustomText>
           </View>
           <View style={styles.dateContainer}>
             <CalendarIcon size={16} color="#FFF" />
-            <Text style={styles.dateText}>{item.date}</Text>
+            <CustomText style={styles.dateText}>{item.date}</CustomText>
           </View>
           <View style={styles.hourContainer}>
             <ClockIcon size={16} color="#FFF" />
-            <Text style={styles.timeText}>{item.hour}</Text>
+            <CustomText style={styles.timeText}>{item.hour}</CustomText>
           </View>
         </View>
       </View>

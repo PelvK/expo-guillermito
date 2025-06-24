@@ -10,7 +10,13 @@ import {
 import { useRouter } from "expo-router";
 import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS, BACKGROUND_OPACITY } from "@/constants";
+import {
+  COLORS,
+  CATEGORIES_LIST,
+  SPACING,
+  SHADOWS,
+  BACKGROUND_OPACITY,
+} from "@/constants";
 import { CustomBackground } from "@/components/CustomBackground";
 
 export default function Section2Screen() {
@@ -30,7 +36,10 @@ export default function Section2Screen() {
           },
         ]}
       >
-        <ScrollView style={styles.content}>
+        <ScrollView
+          style={styles.content}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        >
           <Text style={styles.title}>Seleccione una categoría</Text>
           {CATEGORIES_LIST.map((category) => (
             <TouchableOpacity

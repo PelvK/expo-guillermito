@@ -58,7 +58,7 @@ export default function Section3Screen() {
         {/* Scroll vertical que ocupa el resto */}
         {loadingTeams && (
           <View style={[styles.containerLoading]}>
-            <CustomLoading/>
+            <CustomLoading />
           </View>
         )}
 
@@ -74,7 +74,7 @@ export default function Section3Screen() {
           <View style={styles.matchListContainer}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
               {teams?.length === 0 ? (
-                <CustomNoResults onRetry={refreshTeams}/>
+                <CustomNoResults onRetry={refreshTeams} />
               ) : (
                 teams?.map((team) => (
                   <TeamCard key={team.id} item={team} index={team.id} />
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   containerLoading: {
     flex: 1,
     padding: 8,
-    alignItems: "center"
+    alignItems: "center",
   },
   containerCategoryButton: {
     flexDirection: "row",

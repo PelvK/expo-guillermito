@@ -19,13 +19,12 @@ export default function TeamStandingsScreen() {
 
   return (
     <CustomBackground>
-      <View
-        style={[
-          styles.container
-        ]}
-      >
+      <View style={[styles.container]}>
         {/* Standings Table */}
-        <ScrollView style={styles.standingsContainer}>
+        <ScrollView
+          style={styles.standingsContainer}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        >
           {/* Table Header */}
           <View style={styles.tableHeader}>
             <Text style={[styles.headerText, { flex: 1 }]}>Pos</Text>
@@ -59,7 +58,7 @@ export default function TeamStandingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%"
+    width: "100%",
   },
   standingsContainer: {
     flex: 1,

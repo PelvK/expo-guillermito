@@ -9,6 +9,7 @@ import {
 import { useRef, useEffect } from "react";
 import { Position } from "@mytypes";
 import { COLORS, SPACING } from "@/constants/theme";
+import { CustomText } from "../CustomText";
 
 type PositionCardProps = {
   item: Position;
@@ -50,7 +51,7 @@ export function PositionCard({
           },
         ]}
       >
-        <Text
+        <CustomText
           style={[
             styles.cell,
             styles.pos,
@@ -62,39 +63,39 @@ export function PositionCard({
           ]}
         >
           {item.position}
-        </Text>
+        </CustomText>
 
         <View style={[styles.cell, styles.team]}>
           <Image style={styles.teamShield} source={{ uri: item.team.shield }} />
-          <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+          <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
             {item.team.name}
-          </Text>
+          </CustomText>
         </View>
 
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.matchs.played}
-        </Text>
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        </CustomText>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.matchs.won}
-        </Text>
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        </CustomText>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.matchs.drawn}
-        </Text>
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        </CustomText>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.matchs.lost}
-        </Text>
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        </CustomText>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.goals.favor}
-        </Text>
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        </CustomText>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.goals.against}
-        </Text>
-        <Text style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        </CustomText>
+        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
           {item.goals.difference > 0
             ? `+${item.goals.difference}`
             : item.goals.difference}
-        </Text>
-        <Text
+        </CustomText>
+        <CustomText
           style={[
             styles.cell,
             styles.points,
@@ -107,7 +108,7 @@ export function PositionCard({
           ]}
         >
           {item.points}
-        </Text>
+        </CustomText>
       </View>
     </Animated.View>
   );
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   team: {
-    flex: 7,
+    flex: 5,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,

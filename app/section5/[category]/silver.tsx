@@ -45,7 +45,10 @@ export default function GoldScreen() {
 
   return (
     <CustomBackground>
-      <ScrollView style={[styles.containerScroll]}>
+      <ScrollView
+        style={[styles.containerScroll]}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
         {matchs?.map((match) => (
           <MatchCard
             item={match}

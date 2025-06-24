@@ -20,9 +20,8 @@ import { CustomNoResults } from "@/components/CustomNoResult";
 export default function GroupMatchesScreen() {
   const example = useSafeAreaFrame();
   const { category } = useLocalSearchParams();
-  const { matchs, loadingMatchs, errorMatchs, refreshMatchs } = useMatchsByCategory(
-    Number(category[0])
-  );
+  const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
+    useMatchsByCategory(Number(category[0]));
   const isDark = "dark";
 
   if (loadingMatchs) {
@@ -49,7 +48,10 @@ export default function GroupMatchesScreen() {
       <View style={[styles.container]}>
         {/* Matches List */}
         {matchs && matchs?.length > 0 ? (
-          <ScrollView style={styles.matchesList}>
+          <ScrollView
+            style={styles.matchesList}
+            contentContainerStyle={{ paddingBottom: 10 }}
+          >
             {matchs?.map((item) => {
               return <MatchCard key={item.ID} item={item} index={item.ID} />;
             })}
@@ -97,8 +99,7 @@ const styles = StyleSheet.create({
     color: "#CCC",
   },
   matchesList: {
-    flex: 1,
-    paddingBottom: SPACING.md,
+    paddingBottom: 10,
     paddingStart: SPACING.md,
     paddingEnd: SPACING.md,
     paddingTop: SPACING.md,

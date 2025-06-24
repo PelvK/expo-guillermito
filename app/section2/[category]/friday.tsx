@@ -24,7 +24,7 @@ export default function FridayScreen() {
     return (
       <CustomBackground>
         <View style={[styles.container]}>
-          <CustomLoading/>
+          <CustomLoading />
         </View>
       </CustomBackground>
     );
@@ -43,14 +43,17 @@ export default function FridayScreen() {
   if (!loading && !error && matchs?.length == 0) {
     return (
       <CustomBackground>
-        <CustomNoResults onRetry={refreshMatchs}/>
+        <CustomNoResults onRetry={refreshMatchs} />
       </CustomBackground>
     );
   }
 
   return (
     <CustomBackground>
-      <ScrollView style={[styles.containerScroll]}>
+      <ScrollView
+        style={[styles.containerScroll]}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
         {matchs?.map((match) => (
           <MatchCard item={match} index={match.ID} key={match.ID} />
         ))}
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     padding: SPACING.md,
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     fontSize: 24,

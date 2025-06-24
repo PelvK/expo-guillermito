@@ -23,7 +23,7 @@ export default function SundayScreen() {
     return (
       <CustomBackground>
         <View style={[styles.container]}>
-          <CustomLoading/>
+          <CustomLoading />
         </View>
       </CustomBackground>
     );
@@ -43,7 +43,7 @@ export default function SundayScreen() {
     return (
       <CustomBackground>
         <View style={[styles.container]}>
-          <CustomNoResults onRetry={refreshMatchs}/>
+          <CustomNoResults onRetry={refreshMatchs} />
         </View>
       </CustomBackground>
     );
@@ -51,7 +51,10 @@ export default function SundayScreen() {
 
   return (
     <CustomBackground>
-      <ScrollView style={[styles.containerScroll]}>
+      <ScrollView
+        style={[styles.containerScroll]}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
         {matchs?.map((match) => (
           <MatchCard item={match} index={match.ID} key={match.ID} />
         ))}

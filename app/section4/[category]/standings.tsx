@@ -41,7 +41,10 @@ export default function GroupStandingsScreen() {
       <View style={[styles.container]}>
         {/* Standings Table */}
         {positions && positions.length > 0 ? (
-          <ScrollView style={styles.standingsContainer}>
+          <ScrollView 
+          style={styles.standingsContainer}
+          contentContainerStyle={{ paddingBottom: 20 }} 
+          >
             {/* Table Header */}
 
             <View style={styles.tableBody}>
@@ -52,7 +55,7 @@ export default function GroupStandingsScreen() {
                   </Text>
                   <View style={styles.tableHeader}>
                     <Text style={[styles.headerText, { flex: 1 }]}>Pos</Text>
-                    <Text style={[styles.headerText, { flex: 7 }]}>Equipo</Text>
+                    <Text style={[styles.headerText, { flex: 5 }]}>Equipo</Text>
                     <Text style={[styles.headerText, { flex: 1 }]}>PJ</Text>
                     <Text style={[styles.headerText, { flex: 1 }]}>G</Text>
                     <Text style={[styles.headerText, { flex: 1 }]}>E</Text>
@@ -90,8 +93,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   standingsContainer: {
-    flex: 1,
-    padding: SPACING.md,
+    padding: 10
   },
   zoneHeaderText: {
     color: COLORS.text.light.primary,
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tableBody: {
-    flex: 1,
+    padding: 10,
   },
   errorText: {
     color: COLORS.text.light.primary,
