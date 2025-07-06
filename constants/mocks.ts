@@ -5,6 +5,7 @@ export const CATEGORIES_LIST: Category[] = [
   {
     description: "Sub-13",
     id: 1,
+    limitCup: 2,
     zones: [
       {
         id: 1,
@@ -23,6 +24,7 @@ export const CATEGORIES_LIST: Category[] = [
   {
     description: "Sub-15",
     id: 2,
+    limitCup: 2,
     zones: [
       {
         id: 4,
@@ -37,6 +39,7 @@ export const CATEGORIES_LIST: Category[] = [
   {
     description: "Sub-17",
     id: 3,
+    limitCup: 2,
     zones: [
       {
         id: 6,
@@ -50,14 +53,17 @@ export const CATEGORIES_LIST: Category[] = [
   },
   {
     description: "Sub-19",
+    limitCup: 2,
     id: 4,
   },
   {
     description: "Sub-21",
+    limitCup: 2,
     id: 5,
   },
   {
     description: "Sub-23",
+    limitCup: 2,
     id: 6,
   },
 ];

@@ -18,24 +18,56 @@ import { useTeamsByCategory } from "@/hooks/teams";
 import { CustomBackground } from "@/components/screens/CustomBackground";
 import { CustomLoading } from "@/components/screens/CustomLoading";
 import { CustomNoResults } from "@/components/screens/CustomNoResult";
+import { useCategoriesWithZones } from "@/hooks/categories/useCategoriesAndZones";
 
 export default function Section3Screen() {
+  const { categories, loading, error, refreshCategories } =
+    useCategoriesWithZones();
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const { teams, loadingTeams, errorTeams, refreshTeams } =
     useTeamsByCategory(selectedCategory);
   const isDark = "dark";
 
-  useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
+  if (loading) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
+    );
+  }
 
+  if (error) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <Text style={styles.errorText}>Error al cargar las posiciones</Text>
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (!loading && !error && categories?.length == 0) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomNoResults onRetry={refreshCategories} />
+        </View>
+      </CustomBackground>
+    );
+  }
+  
   return (
     <CustomBackground>
       <View style={[styles.container]}>
         {/* Scroll horizontal */}
         <View style={styles.containerCategoryButton}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {CATEGORIES_LIST.map((category) => (
+            {categories && categories.map((category) => (
               <TouchableOpacity
                 key={category.id}
                 style={[
@@ -93,6 +125,7 @@ export default function Section3Screen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     padding: 8,
   },
   containerLoading: {
@@ -148,5 +181,12 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 25,
     marginRight: 12,
+  },
+   errorText: {
+    color: COLORS.text.light.primary,
+    fontSize: 18,
+    textAlign: "center",
+    verticalAlign: "middle",
+    flex: 1,
   },
 });

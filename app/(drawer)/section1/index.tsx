@@ -61,12 +61,12 @@ const sponsors = [
 ];
 
 const sponsorImages: Record<string, any> = {
-  "add-001": require("../../../assets/adds/add-001.png"),
-  "add-002": require("../../../assets/adds/add-002.png"),
-  "add-003": require("../../../assets/adds/add-003.png"),
-  "add-004": require("../../../assets/adds/add-004.png"),
-  "add-005": require("../../../assets/adds/add-005.png"),
-  "add-006": require("../../../assets/adds/add-006.jpg"),
+  "add-001": require("../../../assets/adds/add001.png"),
+  "add-002": require("../../../assets/adds/add002.png"),
+  "add-003": require("../../../assets/adds/add003.png"),
+  "add-004": require("../../../assets/adds/add004.png"),
+  "add-005": require("../../../assets/adds/add005.png"),
+  "add-006": require("../../../assets/adds/add006.jpg"),
 };
 
 const tournamentStats = [

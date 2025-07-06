@@ -1,6 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
 import { COLORS, SPACING } from "@/constants/theme";
 import { useMatchsCupsByCategory } from "@/hooks/matchs";
@@ -11,7 +17,7 @@ import { CustomLoading } from "@/components/screens/CustomLoading";
 import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function GoldScreen() {
-  const { category } = useLocalSearchParams();
+  const { category, categoryName, limitCup } = useLocalSearchParams();
   const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
     useMatchsCupsByCategory(Number(category[0]), CUP.GOLD);
 
@@ -45,6 +51,23 @@ export default function GoldScreen() {
 
   return (
     <CustomBackground>
+      <View style={{ flexDirection: "row", width: "100%" }}>
+        <TouchableOpacity
+          style={[styles.button]}
+          onPress={() => {
+            router.push({
+              pathname: "/section5/general-table/[category]",
+              params: {
+                category: category, 
+                categoryName: categoryName,
+                limitCup: limitCup
+              },
+            });
+          }}
+        >
+          <Text style={styles.textButton}> Ver la tabla general </Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView
         style={[styles.containerScroll]}
         contentContainerStyle={{ paddingBottom: 56 }}
@@ -73,6 +96,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: SPACING.md,
     width: "100%",
+  },
+  button: {
+    backgroundColor: COLORS.card.gold,
+    padding: 16,
+    flex: 1,
+    margin: 20,
+    borderRadius: 6,
+  },
+  textButton: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: COLORS.text.dark.primary,
   },
   title: {
     fontSize: 24,

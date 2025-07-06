@@ -31,13 +31,13 @@ export async function getTeamsByCategory(
   const API = `${BASE_URL}/apis/get_teams_by_category.php?categoryID=${category}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
-
+  console.log(json)
   return json.map((item: Team) => {
     const { id, shield, name, category, zone } = item;
     const shieldURL =
       shield != null
-        ? `${BASE_URL}/img/${shield}`
-        : `${BASE_URL}/img/default_shield.png`;
+        ? `${BASE_URL}/img/shields/${shield}`
+        : `${BASE_URL}/img/shields/default_shield.png`;
 
     return {
       id: id,

@@ -68,6 +68,7 @@ export default function DrawerLayout() {
           drawerIcon: ({ color, size }) => <BadgeInfoIcon color={color} size={size} />,
         }}
       />
+      
     </Drawer>
   );
 }

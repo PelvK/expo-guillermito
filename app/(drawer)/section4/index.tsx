@@ -12,13 +12,47 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants";
 import { Bold } from "lucide-react-native";
 import { CustomBackground } from "@/components/screens/CustomBackground";
+import { useCategoriesWithZones } from "@/hooks/categories/useCategoriesAndZones";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function Section2Screen() {
+  const { categories, loading, error, refreshCategories } =
+    useCategoriesWithZones();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const isDark = "dark";
-  //const isDark = colorScheme === 'dark';
+
+  if (loading) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (error) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <Text style={styles.errorText}>Error al cargar las posiciones</Text>
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (!loading && !error && categories?.length == 0) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomNoResults onRetry={refreshCategories} />
+        </View>
+      </CustomBackground>
+    );
+  }
 
   return (
     <CustomBackground>
@@ -32,7 +66,7 @@ export default function Section2Screen() {
       >
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Seleccione una categoría</Text>
-          {CATEGORIES_LIST.map((category) => (
+          {categories && categories.map((category) => (
             <TouchableOpacity
               key={category.id}
               style={[
@@ -94,5 +128,12 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  errorText: {
+    color: COLORS.text.light.primary,
+    fontSize: 18,
+    textAlign: "center",
+    verticalAlign: "middle",
+    flex: 1,
   },
 });

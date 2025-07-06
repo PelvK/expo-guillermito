@@ -6,21 +6,21 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 
   let name = "Torneo Guillermito 2025";
   let slug = "expo-guillermito";
-  let bundleIdentifier = "com.efihumboldt.guillermito-app";
-  let androidPackage = "com.efihumboldt.guillermito-app";
+  let bundleIdentifier = "com.efihumboldt.guillermito_app";
+  let androidPackage = "com.efihumboldt.guillermito_app";
 
   if (ENV === "development") {
     name = "Torneo Guillermito Dev";
-    bundleIdentifier = "com.efihumboldt.guillermito-app-dev";
-    androidPackage = "com.efihumboldt.guillermito-app-dev";
+    bundleIdentifier = "com.efihumboldt.guillermito_app_dev";
+    androidPackage = "com.efihumboldt.guillermito_app_dev";
   } else if (ENV === "preview") {
     name = "Torneo Guillermito Preview";
-    bundleIdentifier = "com.efihumboldt.guillermito-app-prev";
-    androidPackage = "com.efihumboldt.guillermito-app-prev";
+    bundleIdentifier = "com.efihumboldt.guillermito_app_prev";
+    androidPackage = "com.efihumboldt.guillermito_app_prev";
   } else if (ENV === "production") {
     name = "Torneo Guillermito 2025";
-    bundleIdentifier = "com.efihumboldt.guillermito-app";
-    androidPackage = "com.efihumboldt.guillermito-app";
+    bundleIdentifier = "com.efihumboldt.guillermito_app";
+    androidPackage = "com.efihumboldt.guillermito_app";
   }
 
   return {

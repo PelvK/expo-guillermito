@@ -15,12 +15,16 @@ type PositionCardProps = {
   item: Position;
   index: number;
   isCurrentTeam: boolean;
+  clasification?: boolean;
+  limit?: number;
 };
 
 export function PositionCard({
   item,
   index,
   isCurrentTeam,
+  clasification = false,
+  limit,
 }: PositionCardProps) {
   const opacity = useRef(new Animated.Value(0)).current;
   const isDark = "dark";
@@ -51,6 +55,19 @@ export function PositionCard({
           },
         ]}
       >
+        {clasification && limit && (
+          <View
+            style={{
+              width: 7,
+              backgroundColor:
+                index <= limit ? COLORS.card.gold : COLORS.card.silver,
+              height: "100%",
+              borderTopEndRadius: 5,
+              borderBottomEndRadius: 5,
+            }}
+          ></View>
+        )}
+
         <CustomText
           style={[
             styles.cell,
@@ -67,30 +84,102 @@ export function PositionCard({
 
         <View style={[styles.cell, styles.team]}>
           <Image style={styles.teamShield} source={{ uri: item.team.shield }} />
-          <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+          <CustomText
+            style={[
+              styles.cell,
+              {
+                color: isCurrentTeam
+                  ? COLORS.positionCard.selected.font
+                  : COLORS.positionCard.unselected.font,
+              },
+            ]}
+          >
             {item.team.name}
           </CustomText>
         </View>
 
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.matchs.played}
         </CustomText>
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.matchs.won}
         </CustomText>
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.matchs.drawn}
         </CustomText>
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.matchs.lost}
         </CustomText>
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.goals.favor}
         </CustomText>
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.goals.against}
         </CustomText>
-        <CustomText style={[styles.cell, {color: isCurrentTeam ? COLORS.positionCard.selected.font : COLORS.positionCard.unselected.font}]}>
+        <CustomText
+          style={[
+            styles.cell,
+            {
+              color: isCurrentTeam
+                ? COLORS.positionCard.selected.font
+                : COLORS.positionCard.unselected.font,
+            },
+          ]}
+        >
           {item.goals.difference > 0
             ? `+${item.goals.difference}`
             : item.goals.difference}
@@ -201,7 +290,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.xs,
+    paddingRight: SPACING.xs,
     marginBottom: 2,
     alignItems: "center",
   },

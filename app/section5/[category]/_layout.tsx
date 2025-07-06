@@ -16,7 +16,7 @@ export const MaterialTopTabs = withLayoutContext(Navigator);
 
 export default function GroupDetailsTabsLayout() {
   const colorScheme = useColorScheme();
-  const { category } = useLocalSearchParams();
+  const { category, categoryName, limitCup } = useLocalSearchParams();
   const isDark = "dark"; //colorScheme === 'dark';
 
   if (!category) {
@@ -61,7 +61,11 @@ export default function GroupDetailsTabsLayout() {
                 <TrophyIcon size={20} color={color} />
               ),
             }}
-            initialParams={{ category: Number(category[0]) }}
+            initialParams={{
+              category: category,
+              categoryName: categoryName,
+              limitCup: limitCup
+            }}
           />
           <MaterialTopTabs.Screen
             name="silver"
@@ -71,7 +75,11 @@ export default function GroupDetailsTabsLayout() {
                 <TrophyIcon size={20} color={color} />
               ),
             }}
-            initialParams={{ category: Number(category[0]) }}
+            initialParams={{
+              category: category,
+              categoryName: categoryName,
+              limitCup: limitCup
+            }}
           />
         </MaterialTopTabs>
       </View>

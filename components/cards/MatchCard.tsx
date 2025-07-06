@@ -22,7 +22,8 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
   const opacity = useRef(new Animated.Value(0)).current;
   const isDark = "dark";
 
-  console.log(item);
+  if (item.type <= 16 ) type = CUP.GOLD;
+
   useEffect(() => {
     Animated.timing(opacity, {
       toValue: 1,
@@ -45,7 +46,7 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
       >
         {/*Card header space*/}
         <View style={styles.matchHeader}>
-          {item.type !== 1 && (
+          {item.type !== 0 && (
             <View
               style={{
                 backgroundColor:

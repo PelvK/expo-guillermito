@@ -18,13 +18,47 @@ import {
   BACKGROUND_OPACITY,
 } from "@/constants";
 import { CustomBackground } from "@/components/screens/CustomBackground";
+import { useCategoriesWithZones } from "@/hooks/categories/useCategoriesAndZones";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function Section2Screen() {
+  const { categories, loading, error, refreshCategories } =
+    useCategoriesWithZones();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const isDark = "dark";
-  //const isDark = colorScheme === 'dark';
+
+  if (loading) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (error) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <Text style={styles.errorText}>Error al cargar las posiciones</Text>
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (!loading && !error && categories?.length == 0) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomNoResults onRetry={refreshCategories} />
+        </View>
+      </CustomBackground>
+    );
+  }
 
   return (
     <CustomBackground>
@@ -41,36 +75,37 @@ export default function Section2Screen() {
           contentContainerStyle={{ paddingBottom: 20 }}
         >
           <Text style={styles.title}>Seleccione una categoría</Text>
-          {CATEGORIES_LIST.map((category) => (
-            <TouchableOpacity
-              key={category.id}
-              style={[
-                styles.categoryButton,
-                {
-                  backgroundColor: isDark
-                    ? COLORS.card.primary
-                    : COLORS.card.primary,
-                  ...SHADOWS[isDark ? "dark" : "light"].medium,
-                },
-              ]}
-              onPress={() => {
-                router.push(`/section2/${category.id}`);
-              }}
-            >
-              <Text
+          {categories &&
+            categories.map((category) => (
+              <TouchableOpacity
+                key={category.id}
                 style={[
-                  styles.categoryText,
+                  styles.categoryButton,
                   {
-                    color: isDark
-                      ? COLORS.text.dark.primary
-                      : COLORS.text.light.primary,
+                    backgroundColor: isDark
+                      ? COLORS.card.primary
+                      : COLORS.card.primary,
+                    ...SHADOWS[isDark ? "dark" : "light"].medium,
                   },
                 ]}
+                onPress={() => {
+                  router.push(`/section2/${category.id}`);
+                }}
               >
-                {category.description}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={[
+                    styles.categoryText,
+                    {
+                      color: isDark
+                        ? COLORS.text.dark.primary
+                        : COLORS.text.light.primary,
+                    },
+                  ]}
+                >
+                  {category.description}
+                </Text>
+              </TouchableOpacity>
+            ))}
         </ScrollView>
       </View>
     </CustomBackground>
@@ -103,5 +138,12 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  errorText: {
+    color: COLORS.text.light.primary,
+    fontSize: 18,
+    textAlign: "center",
+    verticalAlign: "middle",
+    flex: 1,
   },
 });

@@ -57,10 +57,10 @@ export async function getMatchsByCategoryAndDay(
     });
   }
 
-  const API = `${BASE_URL}/apis/get_matchs_by_category_and_day.php?categoryID=${category}&day=${day}`;
+  const API = `${BASE_URL}/apis/get_matchs_by_category_and_day.php?category=${category}&day=${day}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
-
+  console.log("partidos->", json);
   return json.map((item: Match) => {
     const {
       ID,
@@ -257,10 +257,13 @@ export async function getMatchsCupsByCategory(
       };
     });
   }
-
-  const API = `${BASE_URL}/apis/get_matchs_cups_by_category.php?categoryID=${category}&type=${type}}`;
+  console.log("category and typee", category, type)
+  const API = `${BASE_URL}/apis/get_matchs_cups_by_category.php?category=${category}&type=${type}`;
+  console.log("API", API);
   const rawData = await fetch(API);
   const json = await rawData.json();
+
+    console.log("response", json);
 
   return json.map((item: Match) => {
     const {

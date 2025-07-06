@@ -11,23 +11,54 @@ import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, SPACING, SHADOWS, CATEGORIES_LIST } from "@/constants";
 import { CustomBackground } from "@/components/screens/CustomBackground";
+import { useCategoriesWithZones } from "@/hooks/categories/useCategoriesAndZones";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function Section2Screen() {
+  const { categories, loading, error, refreshCategories } =
+    useCategoriesWithZones();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const isDark = "dark";
 
+  if (loading) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomLoading />
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (error) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <Text style={styles.errorText}>Error al cargar las posiciones</Text>
+        </View>
+      </CustomBackground>
+    );
+  }
+
+  if (!loading && !error && categories?.length == 0) {
+    return (
+      <CustomBackground>
+        <View style={[styles.container]}>
+          <CustomNoResults onRetry={refreshCategories} />
+        </View>
+      </CustomBackground>
+    );
+  }
+
   return (
     <CustomBackground>
-      <View
-        style={[
-          styles.container
-        ]}
-      >
+      <View style={[styles.container]}>
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Seleccione una categoría</Text>
-          {CATEGORIES_LIST.map((category) => (
+          {categories && categories.map((category) => (
             <TouchableOpacity
               key={category.id}
               style={[
@@ -37,7 +68,16 @@ export default function Section2Screen() {
                   ...SHADOWS[isDark ? "dark" : "light"].medium,
                 },
               ]}
-              onPress={() => router.push(`/section5/${category.id}`)}
+              onPress={() =>
+                router.push({
+                  pathname: "/section5/[category]",
+                  params: {
+                    category: category.id,
+                    categoryName: category.description,
+                    limitCup: category.limitCup,
+                  },
+                })
+              }
             >
               <Text
                 style={[
@@ -63,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: SPACING.sm,
-    width: "100%"
+    width: "100%",
   },
   title: {
     fontSize: 28,
@@ -85,5 +125,12 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  errorText: {
+    color: COLORS.text.light.primary,
+    fontSize: 18,
+    textAlign: "center",
+    verticalAlign: "middle",
+    flex: 1,
   },
 });
