@@ -131,10 +131,9 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   team: {
-    flex: 5,
+    flex: 6,
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
   },
   teamShield: {
     width: 24,

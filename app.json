@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "expo-guillermito",
+    "name": "Torneo Guillermito 2025",
     "slug": "expo-guillermito",
-    "scheme": "expo-guillermito",
-    "version": "1.0.0",
+    "scheme": "efiguillermito",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -14,15 +14,27 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to show your position on the map.",
+        "NSLocationAlwaysUsageDescription": "This app needs access to your location to provide continuous location information"
+      },
+      "config": {
+        "googleMapsApiKey": ""
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "package": "com.efihumboldt.expoguillermito"
+       "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA0x-VC-SbitgFZFh48nPASILs23NHfN_w"
+        }
+      },
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,6 +49,13 @@
       "eas": {
         "projectId": "f2bedf19-d641-4945-81fe-a10945307696"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f2bedf19-d641-4945-81fe-a10945307696",
+      "checkAutomatically": "NEVER"
     }
   }
 }

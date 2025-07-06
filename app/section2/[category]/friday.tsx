@@ -5,11 +5,11 @@ import { useColorScheme } from "react-native";
 import { COLORS, SPACING } from "@/constants/theme";
 import { useMatchsByCategoryAndDay } from "@/hooks/matchs";
 import { MatchCard } from "@/components/cards/MatchCard";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 import { Container } from "lucide-react-native";
 import { DAY } from "@/libs/types";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function FridayScreen() {
   const colorScheme = useColorScheme();

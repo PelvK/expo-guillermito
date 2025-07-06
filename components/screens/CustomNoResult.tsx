@@ -1,6 +1,13 @@
-import { COLORS } from '@/constants';
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { COLORS } from "@/constants";
+import React, { useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 
 type NoResultsProps = {
   message?: string;
@@ -11,10 +18,22 @@ export const CustomNoResults: React.FC<NoResultsProps> = ({
   message = "No se encontraron resultados.",
   onRetry,
 }) => {
+  const opacity = useRef(new Animated.Value(0)).current;
+  const isDark = "dark";
+
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 200,
+      delay: 100,
+      useNativeDriver: true,
+    }).start();
+  }, [opacity]);
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity }]}>
       <Image
-        source={require('@/assets/logo-guillermito-b&n.png')} // podés usar Lottie también
+        source={require("@/assets/icon-bn.png")} // podés usar Lottie también
         style={styles.image}
         resizeMode="contain"
       />
@@ -25,15 +44,15 @@ export const CustomNoResults: React.FC<NoResultsProps> = ({
           <Text style={styles.buttonText}>Reintentar</Text>
         </TouchableOpacity>
       )}
-    </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 24,
   },
   image: {
@@ -43,8 +62,8 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
-    color: '#ddd',
-    textAlign: 'center',
+    color: "#ddd",
+    textAlign: "center",
     marginBottom: 16,
   },
   button: {
@@ -54,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   buttonText: {
-    color: '#000',
-    fontWeight: 'bold',
+    color: "#000",
+    fontWeight: "bold",
   },
 });

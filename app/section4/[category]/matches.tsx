@@ -13,9 +13,9 @@ import { MatchCard } from "@/components/cards/MatchCard";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
 import { useMatchsByCategory } from "@/hooks/matchs";
-import { CustomBackground } from "@/components/CustomBackground";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomBackground } from "@/components/screens/CustomBackground";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function GroupMatchesScreen() {
   const example = useSafeAreaFrame();
@@ -50,7 +50,7 @@ export default function GroupMatchesScreen() {
         {matchs && matchs?.length > 0 ? (
           <ScrollView
             style={styles.matchesList}
-            contentContainerStyle={{ paddingBottom: 10 }}
+            contentContainerStyle={{ paddingBottom: 56 }}
           >
             {matchs?.map((item) => {
               return <MatchCard key={item.ID} item={item} index={item.ID} />;

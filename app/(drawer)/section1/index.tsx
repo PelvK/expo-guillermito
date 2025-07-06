@@ -11,8 +11,8 @@ import {
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from "react-native";
-import { COLORS, SHADOWS, SPACING } from "@/constants";
-import { CustomBackground } from "@/components/CustomBackground";
+import { COLORS, SPACING } from "@/constants";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 import {
   Calendar,
   MapPin,
@@ -30,51 +30,50 @@ const { width } = Dimensions.get("window");
 const sponsors = [
   {
     id: 1,
-    name: "Sponsor 1",
-    image: "https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg",
+    name: "",
+    image: "add-001",
   },
   {
     id: 2,
-    name: "Sponsor 2",
-    image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg",
+    name: "",
+    image: "add-002",
   },
   {
     id: 3,
-    name: "Sponsor 3",
-    image: "https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg",
+    name: "",
+    image: "add-003",
   },
   {
     id: 4,
-    name: "Sponsor 4",
-    image: "https://images.pexels.com/photos/1181534/pexels-photo-1181534.jpeg",
+    name: "",
+    image: "add-004",
   },
   {
     id: 5,
-    name: "Sponsor 1",
-    image: "https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg",
+    name: "",
+    image: "add-005",
   },
   {
     id: 6,
-    name: "Sponsor 2",
-    image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg",
-  },
-  {
-    id: 7,
-    name: "Sponsor 3",
-    image: "https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg",
-  },
-  {
-    id: 8,
-    name: "Sponsor 4",
-    image: "https://images.pexels.com/photos/1181534/pexels-photo-1181534.jpeg",
+    name: "",
+    image: "add-006",
   },
 ];
 
+const sponsorImages: Record<string, any> = {
+  "add-001": require("../../../assets/adds/add-001.png"),
+  "add-002": require("../../../assets/adds/add-002.png"),
+  "add-003": require("../../../assets/adds/add-003.png"),
+  "add-004": require("../../../assets/adds/add-004.png"),
+  "add-005": require("../../../assets/adds/add-005.png"),
+  "add-006": require("../../../assets/adds/add-006.jpg"),
+};
+
 const tournamentStats = [
-  { icon: Users, label: "Equipos", value: "24", color: COLORS.secondary },
+  { icon: Users, label: "Equipos", value: "24", color: COLORS.card.gold },
   { icon: Trophy, label: "Categ.", value: "6", color: COLORS.card.gold },
-  { icon: MapPin, label: "Canchas", value: "10", color: COLORS.primary },
-  { icon: Calendar, label: "Días", value: "2", color: COLORS.card.silver },
+  { icon: MapPin, label: "Canchas", value: "10", color: COLORS.card.gold },
+  { icon: Calendar, label: "Días", value: "2", color: COLORS.card.gold },
 ];
 
 const highlights = [
@@ -114,14 +113,14 @@ export default function Section1Screen() {
         {/* Hero Section */}
         <View style={styles.heroSection}>
           <Image
-            source={require("@/assets/logo-guillermito.png")}
+            source={require("@/assets/icon.png")}
             style={styles.logo}
             resizeMode="contain"
           />
 
           <View style={styles.welcomeContainer}>
-            <Text style={styles.welcomeTitle}>¡Bienvenidos al</Text>
-            <Text style={styles.tournamentTitle}>Torneo Guillermito 2025</Text>
+            <Text style={styles.welcomeTitle}>Bienvenidos al</Text>
+            <Text style={styles.tournamentTitle}>Torneo Guillermito Femenino 2025 </Text>
           </View>
 
           {/* Countdown or Date Info */}
@@ -146,34 +145,10 @@ export default function Section1Screen() {
           </View>
         </View>
 
-        {/* Sponsors Section */}
-        <View style={styles.sponsorsSection}>
-          <Text style={styles.sectionTitle}>Nuestros Patrocinadores</Text>
-          <Text style={styles.sponsorsSubtitle}>
-            Gracias a quienes hacen posible este torneo
-          </Text>
-
-          <View style={styles.sponsorsGrid}>
-            {sponsors.map((sponsor) => (
-              <TouchableOpacity key={sponsor.id} style={styles.sponsorCard}>
-                <Image
-                  source={{ uri: sponsor.image }}
-                  style={styles.sponsorImage}
-                  resizeMode="cover"
-                />
-                <View style={styles.sponsorOverlay}>
-                  <Text style={styles.sponsorName}>{sponsor.name}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
         {/* Call to Action */}
         <View style={styles.ctaSection}>
           <View style={styles.ctaCard}>
-            <Star size={32} color={COLORS.secondary} />
-            <Text style={styles.ctaTitle}>¡Prepárate para la Acción!</Text>
+            <Text style={styles.ctaTitle}>¡Que se diviertan!</Text>
             <Text style={styles.ctaDescription}>
               Explora los equipos, consulta los horarios y sigue todos los
               partidos en tiempo real
@@ -199,14 +174,27 @@ export default function Section1Screen() {
           </View>
         </View>
 
-        {/* Footer */}
-        <View style={styles.footer}>
-          <Image
-            source={require("@/assets/logo-efi.png")}
-            style={styles.footerLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.footerText}>Desarrollado por EFI Humboldt</Text>
+        {/* Sponsors Section */}
+        <View style={styles.sponsorsSection}>
+          <Text style={styles.sectionTitle}>Nuestros Patrocinadores</Text>
+          <Text style={styles.sponsorsSubtitle}>
+            Gracias a quienes hacen posible este torneo
+          </Text>
+
+          <View style={styles.sponsorsGrid}>
+            {sponsors.map((sponsor) => (
+              <TouchableOpacity key={sponsor.id} style={styles.sponsorCard}>
+                <Image
+                  source={sponsorImages[sponsor.image]}
+                  style={styles.sponsorImage}
+                />
+
+                <View style={styles.sponsorOverlay}>
+                  <Text style={styles.sponsorName}>{sponsor.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </CustomBackground>
@@ -221,9 +209,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: SPACING.lg,
     backgroundColor: COLORS.card.primary + "95",
-    borderRadius: 16,
-    margin: SPACING.lg,
-    ...SHADOWS.light.medium,
+    borderRadius: 12,
+    marginBottom: 12,
+    marginHorizontal: SPACING.lg,
+    marginTop: SPACING.lg,
   },
   logo: {
     width: width * 0.6,
@@ -246,9 +235,6 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
     textAlign: "center",
     marginVertical: SPACING.sm,
-    textShadowColor: "rgba(0, 0, 0, 0.3)",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
   },
   welcomeSubtitle: {
     fontSize: 16,
@@ -262,7 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.card.primary + "90",
     paddingHorizontal: SPACING.lg,
     paddingVertical: SPACING.sm,
-    borderRadius: 25,
+    borderRadius: 12,
     gap: SPACING.sm,
   },
   dateText: {
@@ -272,7 +258,7 @@ const styles = StyleSheet.create({
   },
   statsSection: {
     paddingHorizontal: SPACING.lg,
-    marginBottom: SPACING.xl,
+    marginBottom: 12,
   },
   sectionTitle: {
     fontSize: 24,
@@ -288,20 +274,18 @@ const styles = StyleSheet.create({
 
   statCard: {
     backgroundColor: COLORS.card.primary + "95",
-    borderRadius: 16,
+    borderRadius: 12,
     padding: 10,
     alignItems: "center",
-    width: (width - SPACING.lg * 4) / 4,
-    ...SHADOWS.light.medium,
+    width: (width - 17 * 4) / 4,
   },
   statValue: {
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: "bold",
     color: COLORS.primary,
-    marginTop: SPACING.sm,
   },
   statLabel: {
-    fontSize: 14,
+    fontSize: 12,
     color: COLORS.text.dark.secondary,
     fontWeight: "600",
   },
@@ -311,17 +295,16 @@ const styles = StyleSheet.create({
   },
   highlightCard: {
     backgroundColor: COLORS.card.primary + "95",
-    borderRadius: 16,
+    borderRadius: 12,
     padding: SPACING.lg,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: SPACING.md,
-    ...SHADOWS.light.medium,
   },
   highlightIcon: {
     width: 48,
     height: 48,
-    borderRadius: 24,
+    borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
     marginRight: SPACING.md,
@@ -363,15 +346,15 @@ const styles = StyleSheet.create({
   },
   sponsorCard: {
     width: (width - SPACING.lg * 2 - SPACING.md * 2) / 3,
-    aspectRatio: 1.5,
+    aspectRatio: 1,
     borderRadius: 12,
     overflow: "hidden",
-    ...SHADOWS.light.medium,
   },
 
   sponsorImage: {
     width: "100%",
     height: "100%",
+    resizeMode: "contain"
   },
   sponsorOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -391,10 +374,9 @@ const styles = StyleSheet.create({
   },
   ctaCard: {
     backgroundColor: COLORS.card.primary + "95",
-    borderRadius: 20,
-    padding: SPACING.xl,
+    borderRadius: 12,
+    padding: 14,
     alignItems: "center",
-    ...SHADOWS.light.medium,
   },
   ctaTitle: {
     fontSize: 24,

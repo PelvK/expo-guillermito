@@ -5,10 +5,10 @@ import { useColorScheme } from "react-native";
 import { COLORS, SPACING } from "@/constants/theme";
 import { useMatchsByCategoryAndDay } from "@/hooks/matchs";
 import { MatchCard } from "@/components/cards/MatchCard";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 import { DAY } from "@/libs/types";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function SundayScreen() {
   const { category } = useLocalSearchParams();

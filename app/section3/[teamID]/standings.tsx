@@ -6,7 +6,8 @@ import { COLORS, POSITIONS_LIST, SPACING } from "@/constants";
 import { useTeamsByTeamId } from "@/hooks/teams";
 import { usePositionsByTeamId } from "@/hooks/positions";
 import { PositionCard } from "@/components/cards/PositionCard";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
+import { CustomText } from "@/components/CustomText";
 
 export default function TeamStandingsScreen() {
   const { teamID } = useLocalSearchParams();
@@ -23,20 +24,20 @@ export default function TeamStandingsScreen() {
         {/* Standings Table */}
         <ScrollView
           style={styles.standingsContainer}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 56 }}
         >
           {/* Table Header */}
           <View style={styles.tableHeader}>
-            <Text style={[styles.headerText, { flex: 1 }]}>Pos</Text>
-            <Text style={[styles.headerText, { flex: 7 }]}>Equipo</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>PJ</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>G</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>E</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>P</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>GF</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>GC</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>+/-</Text>
-            <Text style={[styles.headerText, { flex: 1 }]}>Pts</Text>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>N°</CustomText>
+            <CustomText style={[styles.headerText, { flex: 6 }]}>Equipo</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>PJ</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>G</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>E</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>P</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>GF</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>GC</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>+/-</CustomText>
+            <CustomText style={[styles.headerText, { flex: 1 }]}>Pts</CustomText>
           </View>
 
           <View style={styles.tableBody}>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: COLORS.headers.positionTable.background,
     paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.xs,
+    paddingHorizontal: 10,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     flex: 1,
@@ -76,9 +77,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: COLORS.headers.positionTable.font,
     fontWeight: "bold",
-    fontSize: 12,
     textAlign: "center",
-    flex: 1,
   },
   tableBody: {
     flex: 1,

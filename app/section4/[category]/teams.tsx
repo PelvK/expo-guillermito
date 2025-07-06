@@ -5,9 +5,9 @@ import { useColorScheme } from "react-native";
 import { COLORS, SPACING, TEAM_LIST } from "@/constants";
 import { useTeamsByCategory } from "@/hooks/teams";
 import { TeamCard } from "@/components/cards/TeamCard";
-import { CustomBackground } from "@/components/CustomBackground";
-import { CustomNoResults } from "@/components/CustomNoResult";
-import { CustomLoading } from "@/components/CustomLoading";
+import { CustomBackground } from "@/components/screens/CustomBackground";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
+import { CustomLoading } from "@/components/screens/CustomLoading";
 
 export default function GroupTeamsScreen() {
   const { category } = useLocalSearchParams();
@@ -40,7 +40,10 @@ export default function GroupTeamsScreen() {
     <CustomBackground>
       <View style={[styles.container]}>
         {teams && teams.length > 0 ? (
-          <ScrollView showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 56 }}
+          >
             {teams.map((item) => {
               return <TeamCard key={item.id} item={item} index={item.id} />;
             })}

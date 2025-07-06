@@ -10,7 +10,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from "react-native";
 import { COLORS } from "@/constants/theme";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 
 
 export default function InstalationsScreen() {

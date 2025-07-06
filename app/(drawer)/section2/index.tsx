@@ -17,7 +17,7 @@ import {
   SHADOWS,
   BACKGROUND_OPACITY,
 } from "@/constants";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 
 export default function Section2Screen() {
   const router = useRouter();

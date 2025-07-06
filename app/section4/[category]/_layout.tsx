@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
 import { CATEGORY_NOT_FOUND_TEXT, COLORS, SPACING } from "@/constants/";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 const { Navigator } = createMaterialTopTabNavigator();
 

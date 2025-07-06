@@ -11,9 +11,9 @@ import {
 import { useTeamsByTeamId } from "@/hooks/teams";
 import { MatchCard } from "@/components/cards/MatchCard";
 import { useMatchsByTeamId } from "@/hooks/matchs";
-import { CustomBackground } from "@/components/CustomBackground";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomBackground } from "@/components/screens/CustomBackground";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function TeamMatchesScreen() {
   const { teamID } = useLocalSearchParams();
@@ -49,7 +49,7 @@ export default function TeamMatchesScreen() {
         {matchs && matchs?.length > 0 ? (
           <ScrollView
             style={styles.matchesList}
-            contentContainerStyle={{ paddingBottom: 20 }}
+            contentContainerStyle={{ paddingBottom: 56 }}
           >
             {matchs?.map((item) => (
               <MatchCard item={item} index={item.ID} key={item.ID} />

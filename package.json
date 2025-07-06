@@ -11,6 +11,8 @@
     "dev": "expo start",
     "android-build-development": "eas build --profile development --platform android --local --output ./builds/android-dev.apk",
     "android-build-preview": "eas build --profile preview --platform android --local --output ./builds/android-preview.apk",
+    "android-update-development": "eas build --profile development --platform android --local --output ./builds/android-dev.apk",
+    "android-update-preview": "eas update --channel preview",
     "ios-build-development": "eas build --profile development --platform ios --local --output ./builds/ios-dev.app",
     "ios-build-preview": "eas build --profile preview --platform ios --local --output ./builds/ios-preview.app"
   },
@@ -35,20 +37,21 @@
     "expo-status-bar": "~2.2.3",
     "expo-symbols": "~0.4.3",
     "expo-system-ui": "~5.0.9",
+    "expo-updates": "^0.28.15",
     "expo-web-browser": "~14.2.0",
     "lucide-react-native": "^0.515.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.4",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-pager-view": "6.7.1",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-svg": "15.11.2",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "^0.20.0",
-    "react-native-webview": "13.13.5",
-    "react-native-pager-view": "6.7.1"
+    "react-native-webview": "13.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

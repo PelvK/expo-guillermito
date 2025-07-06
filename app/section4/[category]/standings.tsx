@@ -5,9 +5,9 @@ import { useColorScheme } from "react-native";
 import { COLORS, SPACING, TEAM_LIST } from "@/constants";
 import { usePositionsByCategory } from "@/hooks/positions/usePositionByCategory";
 import { PositionCard } from "@/components/cards/PositionCard";
-import { CustomBackground } from "@/components/CustomBackground";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomBackground } from "@/components/screens/CustomBackground";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function GroupStandingsScreen() {
   const { category } = useLocalSearchParams();
@@ -43,7 +43,7 @@ export default function GroupStandingsScreen() {
         {positions && positions.length > 0 ? (
           <ScrollView 
           style={styles.standingsContainer}
-          contentContainerStyle={{ paddingBottom: 20 }} 
+          contentContainerStyle={{ paddingBottom: 56 }} 
           >
             {/* Table Header */}
 

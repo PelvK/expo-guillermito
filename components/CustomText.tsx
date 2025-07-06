@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextProps, TextStyle } from "react-native";
+import { Text, TextProps, TextStyle, StyleSheet } from "react-native";
 
 type CustomTextProps = TextProps & {
   numberOfLines?: number;
@@ -18,10 +18,16 @@ export const CustomText: React.FC<CustomTextProps> = ({
     <Text
       numberOfLines={numberOfLines}
       ellipsizeMode={ellipsizeMode}
-      style={style}
+      style={[style, styles.text]}
       {...rest}
     >
       {children}
     </Text>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 12
+  },
+});

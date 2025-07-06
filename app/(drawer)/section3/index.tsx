@@ -15,9 +15,9 @@ import { useColorScheme } from "react-native";
 import { CATEGORIES_LIST, COLORS, FONT_SIZES, SHADOWS } from "@/constants";
 import { TeamCard } from "@/components/cards/TeamCard";
 import { useTeamsByCategory } from "@/hooks/teams";
-import { CustomBackground } from "@/components/CustomBackground";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomBackground } from "@/components/screens/CustomBackground";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function Section3Screen() {
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
@@ -72,7 +72,9 @@ export default function Section3Screen() {
 
         {!errorTeams && !loadingTeams && (
           <View style={styles.matchListContainer}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollView
+              contentContainerStyle={{ flexGrow: 1, paddingBottom: 56 }}
+            >
               {teams?.length === 0 ? (
                 <CustomNoResults onRetry={refreshTeams} />
               ) : (

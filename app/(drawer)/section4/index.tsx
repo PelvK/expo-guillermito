@@ -11,7 +11,7 @@ import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, CATEGORIES_LIST, SPACING, SHADOWS } from "@/constants";
 import { Bold } from "lucide-react-native";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 
 export default function Section2Screen() {
   const router = useRouter();

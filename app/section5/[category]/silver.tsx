@@ -4,11 +4,11 @@ import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
 import { COLORS, SPACING } from "@/constants/theme";
 import { useMatchsCupsByCategory } from "@/hooks/matchs";
-import { CustomBackground } from "@/components/CustomBackground";
+import { CustomBackground } from "@/components/screens/CustomBackground";
 import { MatchCard } from "@/components/cards/MatchCard";
 import { CUP } from "@/libs/types";
-import { CustomLoading } from "@/components/CustomLoading";
-import { CustomNoResults } from "@/components/CustomNoResult";
+import { CustomLoading } from "@/components/screens/CustomLoading";
+import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
 export default function GoldScreen() {
   const { category } = useLocalSearchParams();
@@ -47,7 +47,7 @@ export default function GoldScreen() {
     <CustomBackground>
       <ScrollView
         style={[styles.containerScroll]}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: 56 }}
       >
         {matchs?.map((match) => (
           <MatchCard
