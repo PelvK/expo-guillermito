@@ -18,7 +18,7 @@ import { CustomLoading } from "@/components/screens/CustomLoading";
 export default function GeneralTableScreen() {
   const { category, categoryName, limitCup } = useLocalSearchParams();
   const { positions, refreshPositions, errorPositions, loadingPositions } =
-    usePositionsGeneralByCategory(Number(category[0]));
+    usePositionsGeneralByCategory(Number(category));
   const navigation = useNavigation();
 
   useEffect(() => {

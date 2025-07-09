@@ -12,7 +12,9 @@
     "android-build-development": "eas build --profile development --platform android --local --output ./builds/android-dev.apk",
     "android-build-preview": "eas build --profile preview --platform android --local --output ./builds/android-preview.apk",
     "android-update-development": "eas build --profile development --platform android --local --output ./builds/android-dev.apk",
-    "android-update-preview": "eas update --channel preview",
+    "update:dev": "ENV=development eas update --branch dev",
+    "update:preview": "ENV=preview eas update --branch preview",
+    "update:prod": "ENV=production eas update --branch main",
     "ios-build-development": "eas build --profile development --platform ios --local --output ./builds/ios-dev.app",
     "ios-build-preview": "eas build --profile preview --platform ios --local --output ./builds/ios-preview.app"
   },
@@ -33,6 +35,7 @@
     "expo-linear-gradient": "~14.1.3",
     "expo-linking": "~7.1.5",
     "expo-router": "~5.1.0",
+    "expo-sharing": "^13.1.5",
     "expo-splash-screen": "~0.30.6",
     "expo-status-bar": "~2.2.3",
     "expo-symbols": "~0.4.3",

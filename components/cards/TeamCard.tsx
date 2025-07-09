@@ -33,7 +33,10 @@ export function TeamCard({ item, index }: TeamCardProps) {
     <Animated.View style={[styles.container, { opacity }]}>
       <TouchableOpacity
         key={item.id}
-        onPress={() => router.push(`/section3/${item.id}`)}
+        onPress={() => {
+          console.log("presione el equipo con id: ", item.id)
+          router.push(`/section3/${item.id}`)}
+        }
         style={[
           styles.categoryButton,
           {

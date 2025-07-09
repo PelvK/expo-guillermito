@@ -12,7 +12,7 @@ import { CustomNoResults } from "@/components/screens/CustomNoResult";
 export default function GroupStandingsScreen() {
   const { category } = useLocalSearchParams();
   const { positions, loadingPositions, errorPositions, refreshPositions } =
-    usePositionsByCategory(Number(category[0]));
+    usePositionsByCategory(Number(category));
 
   const colorScheme = useColorScheme();
   const isDark = "dark";

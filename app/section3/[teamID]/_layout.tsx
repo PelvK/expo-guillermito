@@ -23,7 +23,7 @@ export default function TeamDetailTabsLayout() {
   const colorScheme = useColorScheme();
   const { teamID } = useLocalSearchParams();
   const { team, loadingTeam, errorTeam, refreshTeam } = useTeamsByTeamId(
-    teamID[0]
+    Number(teamID)
   );
   const isDark = "dark";
 

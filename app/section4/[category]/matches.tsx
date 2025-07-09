@@ -21,7 +21,7 @@ export default function GroupMatchesScreen() {
   const example = useSafeAreaFrame();
   const { category } = useLocalSearchParams();
   const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
-    useMatchsByCategory(Number(category[0]));
+    useMatchsByCategory(Number(category));
   const isDark = "dark";
 
   if (loadingMatchs) {

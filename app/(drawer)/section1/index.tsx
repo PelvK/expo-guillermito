@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   View,
   Text,
@@ -23,10 +23,10 @@ import {
   Award,
   Target,
 } from "lucide-react-native";
+import { useStats } from "@/hooks/useStats";
 
 const { width } = Dimensions.get("window");
 
-// Mock sponsor data - replace with real sponsors
 const sponsors = [
   {
     id: 1,
@@ -69,39 +69,21 @@ const sponsorImages: Record<string, any> = {
   "add-006": require("../../../assets/adds/add006.jpg"),
 };
 
-const tournamentStats = [
-  { icon: Users, label: "Equipos", value: "24", color: COLORS.card.gold },
-  { icon: Trophy, label: "Categ.", value: "6", color: COLORS.card.gold },
-  { icon: MapPin, label: "Canchas", value: "10", color: COLORS.card.gold },
-  { icon: Calendar, label: "Días", value: "2", color: COLORS.card.gold },
-];
-
-const highlights = [
-  {
-    title: "Copa de Oro",
-    description: "Competencia principal del torneo",
-    icon: Trophy,
-    color: COLORS.card.gold,
-  },
-  {
-    title: "Copa de Plata",
-    description: "Segunda división de competencia",
-    icon: Award,
-    color: COLORS.card.silver,
-  },
-  {
-    title: "Fixture Completo",
-    description: "Consulta todos los partidos",
-    icon: Calendar,
-    color: COLORS.secondary,
-  },
-];
 
 export default function Section1Screen() {
   const router = useRouter();
+  const { stats } = useStats();
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
+
+   const tournamentStats = useMemo(() => [
+    { icon: Users, label: "Equipos", value: stats?.teamCount ?? "-", color: COLORS.card.gold },
+    { icon: Trophy, label: "Categ.", value: stats?.categCount ?? "-", color: COLORS.card.gold },
+    { icon: MapPin, label: "Canchas", value: stats?.placesCount ?? "-", color: COLORS.card.gold },
+    { icon: Calendar, label: "Días", value: stats?.days ?? "-", color: COLORS.card.gold },
+  ], [stats]);
+
 
   return (
     <CustomBackground>

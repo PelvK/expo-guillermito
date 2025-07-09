@@ -18,7 +18,7 @@ import { CustomNoResults } from "@/components/screens/CustomNoResult";
 export default function TeamMatchesScreen() {
   const { teamID } = useLocalSearchParams();
   const { matchs, loadingMatch, errorMatch, refreshMatchs } = useMatchsByTeamId(
-    Number(teamID[0])
+    Number(teamID)
   );
   const isDark = "dark";
 

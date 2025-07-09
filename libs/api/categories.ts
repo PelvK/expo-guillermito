@@ -16,7 +16,6 @@ export async function getCategoriesAndZones(): Promise<Category[] | null> {
     }
     
     const json = await rawData.json();
-    console.log (json)
   return json.map((item: any) => {
     return {
       id: item.id,

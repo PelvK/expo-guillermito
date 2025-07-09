@@ -19,7 +19,7 @@ import { CustomNoResults } from "@/components/screens/CustomNoResult";
 export default function GoldScreen() {
   const { category, categoryName, limitCup } = useLocalSearchParams();
   const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
-    useMatchsCupsByCategory(Number(category[0]), CUP.SILVER);
+    useMatchsCupsByCategory(Number(category), CUP.SILVER);
 
   if (loadingMatchs) {
     return (

@@ -31,7 +31,6 @@ export async function getTeamsByCategory(
   const API = `${BASE_URL}/apis/get_teams_by_category.php?categoryID=${category}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
-  console.log(json)
   return json.map((item: Team) => {
     const { id, shield, name, category, zone } = item;
     const shieldURL =
@@ -49,11 +48,11 @@ export async function getTeamsByCategory(
   });
 }
 
-export async function getTeamById(teamID: string): Promise<Team> {
+export async function getTeamById(teamID: number): Promise<Team> {
   if (IS_MOCKED) {
     await delay(1000);
     const TEAM_FILTER: Team = TEAM_LIST.filter(
-      (item: Team) => item.id.toString() == teamID
+      (item: Team) => item.id == teamID
     ).at(0)!;
 
     const shieldURL =

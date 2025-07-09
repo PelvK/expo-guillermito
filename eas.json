@@ -45,10 +45,16 @@
       },
       "env": {
         "ENV": "production"
-      }
+      },
+      "autoIncrement": true
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "efi.humboldt@gmail.com",
+        "ascAppId": "6748403998" 
+      }
+    }
   }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Team } from "@mytypes";
 import { getTeamById } from "@/libs/api"
 
-export function useTeamsByTeamId(teamID: string) {
+export function useTeamsByTeamId(teamID: number) {
   const [team, setTeam] = useState<Team>();
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);

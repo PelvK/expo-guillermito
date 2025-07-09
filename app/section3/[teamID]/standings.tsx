@@ -12,7 +12,7 @@ import { CustomText } from "@/components/CustomText";
 export default function TeamStandingsScreen() {
   const { teamID } = useLocalSearchParams();
   const { positions, loadingPositions, errorPositions } = usePositionsByTeamId(
-    Number(teamID[0])
+    Number(teamID)
   );
 
   const colorScheme = useColorScheme();
@@ -46,7 +46,7 @@ export default function TeamStandingsScreen() {
                 item={position}
                 key={position.ID}
                 index={position.ID}
-                isCurrentTeam={position.team.id === Number(teamID[0])}
+                isCurrentTeam={position.team.id === Number(teamID)}
               />
             ))}
           </View>

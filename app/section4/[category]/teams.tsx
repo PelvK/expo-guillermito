@@ -12,7 +12,7 @@ import { CustomLoading } from "@/components/screens/CustomLoading";
 export default function GroupTeamsScreen() {
   const { category } = useLocalSearchParams();
   const { teams, loadingTeams, errorTeams, refreshTeams } = useTeamsByCategory(
-    Number(category[0])
+    Number(category)
   );
   const isDark = "dark";
 
