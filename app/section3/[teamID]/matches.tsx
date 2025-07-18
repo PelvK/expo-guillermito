@@ -51,8 +51,8 @@ export default function TeamMatchesScreen() {
             style={styles.matchesList}
             contentContainerStyle={{ paddingBottom: 56 }}
           >
-            {matchs?.map((item) => (
-              <MatchCard item={item} index={item.ID} key={item.ID} />
+            {matchs?.map((item, index) => (
+              <MatchCard item={item} index={index} key={item.ID} />
             ))}
           </ScrollView>
         ) : (

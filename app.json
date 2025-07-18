@@ -3,13 +3,13 @@
     "name": "Torneo Guillermito 2025",
     "slug": "expo-guillermito",
     "scheme": "efiguillermito",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_femenino.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/icon_femenino.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
       "supportsTablet": true,
        "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "NSCameraUsageDescription": "Esta aplicación necesita acceso a la cámara para tomar fotos o escanear códigos relacionados con el torneo.",
+        "NSCameraUsageDescription": "Esta aplicación necesita acceso a la cámara para tomar fotos o escanear códigos relacionados con el torneo."
       },
       "config": {
         "googleMapsApiKey": ""
@@ -25,7 +25,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive_icon_femenino.png",
         "backgroundColor": "#ffffff"
       },
        "config": {

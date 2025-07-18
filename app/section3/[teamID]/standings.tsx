@@ -41,11 +41,11 @@ export default function TeamStandingsScreen() {
           </View>
 
           <View style={styles.tableBody}>
-            {positions?.map((position) => (
+            {positions?.map((position, index) => (
               <PositionCard
                 item={position}
                 key={position.ID}
-                index={position.ID}
+                index={index}
                 isCurrentTeam={position.team.id === Number(teamID)}
               />
             ))}

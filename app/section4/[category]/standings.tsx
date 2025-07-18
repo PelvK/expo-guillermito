@@ -65,11 +65,11 @@ export default function GroupStandingsScreen() {
                     <Text style={[styles.headerText, { flex: 1 }]}>+/-</Text>
                     <Text style={[styles.headerText, { flex: 1 }]}>Pts</Text>
                   </View>
-                  {positionList.positions.map((position) => (
+                  {positionList.positions.map((position, index) => (
                     <PositionCard
                       item={position}
                       key={position.ID}
-                      index={position.ID}
+                      index={index}
                       isCurrentTeam={false}
                     />
                   ))}

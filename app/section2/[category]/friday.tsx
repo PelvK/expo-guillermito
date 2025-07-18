@@ -54,8 +54,8 @@ export default function FridayScreen() {
         style={[styles.containerScroll]}
         contentContainerStyle={{ paddingBottom: 20 }}
       >
-        {matchs?.map((match) => (
-          <MatchCard item={match} index={match.ID} key={match.ID} />
+        {matchs?.map((match, index) => (
+          <MatchCard item={match} index={index} key={match.ID} />
         ))}
       </ScrollView>
     </CustomBackground>

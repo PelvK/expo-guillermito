@@ -34,7 +34,6 @@ export function TeamCard({ item, index }: TeamCardProps) {
       <TouchableOpacity
         key={item.id}
         onPress={() => {
-          console.log("presione el equipo con id: ", item.id)
           router.push(`/section3/${item.id}`)}
         }
         style={[

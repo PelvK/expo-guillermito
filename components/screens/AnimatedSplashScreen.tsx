@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing, View, StyleSheet } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import SplashIcon from "@/assets/icon.png";
+import SplashIcon from "@/assets/icon_femenino.png";
 import { CustomBackground } from "./CustomBackground";
 
 const AnimatedSplashScreen = ({ onFinish }: { onFinish: () => void }) => {

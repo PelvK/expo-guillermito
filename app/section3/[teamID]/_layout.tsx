@@ -27,9 +27,6 @@ export default function TeamDetailTabsLayout() {
   );
   const isDark = "dark";
 
-  useEffect(() => {
-    console.log(team);
-  }, [team]);
 
   if (!team && !loadingTeam && !errorTeam) {
     return (

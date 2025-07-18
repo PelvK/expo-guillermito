@@ -33,7 +33,7 @@ export const CustomNotReady: React.FC<NoResultsProps> = ({
   return (
     <Animated.View style={[styles.container, { opacity }]}>
       <Image
-        source={require("@/assets/icon.png")} // podés usar Lottie también
+        source={require("@/assets/icon_femenino.png")}
         style={styles.image}
         resizeMode="contain"
       />

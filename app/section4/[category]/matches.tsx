@@ -52,8 +52,8 @@ export default function GroupMatchesScreen() {
             style={styles.matchesList}
             contentContainerStyle={{ paddingBottom: 56 }}
           >
-            {matchs?.map((item) => {
-              return <MatchCard key={item.ID} item={item} index={item.ID} />;
+            {matchs?.map((item, index) => {
+              return <MatchCard key={item.ID} item={item} index={index} />;
             })}
           </ScrollView>
         ) : (

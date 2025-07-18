@@ -33,7 +33,7 @@ export const CustomNoResults: React.FC<NoResultsProps> = ({
   return (
     <Animated.View style={[styles.container, { opacity }]}>
       <Image
-        source={require("@/assets/icon-bn.png")} // podés usar Lottie también
+        source={require("@/assets/icon_femenino_bn.png")}
         style={styles.image}
         resizeMode="contain"
       />

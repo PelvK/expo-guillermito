@@ -72,10 +72,10 @@ export default function GoldScreen() {
         style={[styles.containerScroll]}
         contentContainerStyle={{ paddingBottom: 56 }}
       >
-        {matchs?.map((match) => (
+        {matchs?.map((match, index) => (
           <MatchCard
             item={match}
-            index={match.ID}
+            index={index}
             key={match.ID}
             type={CUP.SILVER}
           />

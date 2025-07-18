@@ -110,8 +110,8 @@ export default function Section3Screen() {
               {teams?.length === 0 ? (
                 <CustomNoResults onRetry={refreshTeams} />
               ) : (
-                teams?.map((team) => (
-                  <TeamCard key={team.id} item={team} index={team.id} />
+                teams?.map((team, index) => (
+                  <TeamCard key={team.id} item={team} index={index} />
                 ))
               )}
             </ScrollView>

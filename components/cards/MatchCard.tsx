@@ -22,7 +22,7 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
   const opacity = useRef(new Animated.Value(0)).current;
   const isDark = "dark";
 
-  if (item.type <= 16 ) type = CUP.GOLD;
+  const displayType = item.type <= 16  && item.type > 0 ? CUP.GOLD : type;
 
   useEffect(() => {
     Animated.timing(opacity, {
@@ -50,14 +50,16 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
             <View
               style={{
                 backgroundColor:
-                  type === CUP.GOLD ? COLORS.card.gold : COLORS.card.silver,
+                  displayType === CUP.GOLD
+                    ? COLORS.card.gold
+                    : COLORS.card.silver,
                 height: 18,
                 width: 18,
                 borderRadius: 9,
                 position: "absolute",
                 alignItems: "center",
                 left: 0,
-                margin: 5
+                margin: 5,
               }}
             >
               <CustomText
@@ -67,7 +69,7 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
                   verticalAlign: "middle",
                 }}
               >
-                {item.type}
+                {`${item.type}`}
               </CustomText>
             </View>
           )}
@@ -90,15 +92,32 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
 
           {/*Center space*/}
           <View style={styles.vsContainer}>
-            {item.localResult && item.visitResult && (
-              <CustomText style={{ verticalAlign: "top" }}>Finalizado</CustomText>
+            {item.localResult != null && item.visitResult != null && (
+              <CustomText style={{ textAlign: "center" }}>
+                Finalizado
+              </CustomText>
             )}
             <CustomText style={styles.vsText}>VS</CustomText>
-            {item.localResult && item.visitResult && (
+            {item.localResult != null && item.visitResult != null && (
               <View style={styles.backResult}>
-                <CustomText style={styles.resultText}>{item.localResult}</CustomText>
+                <CustomText style={styles.resultText}>
+                  {String(item.localResult)}
+                </CustomText>
                 <CustomText style={styles.resultText}>-</CustomText>
-                <CustomText style={styles.resultText}>{item.visitResult}</CustomText>
+                <CustomText style={styles.resultText}>
+                  {String(item.visitResult)}
+                </CustomText>
+              </View>
+            )}
+            {item.localPenalty != null && item.visitPenalty != null && (
+              <View style={styles.backResult2}>
+                <CustomText style={styles.resultText}>
+                  {'(' + String(item.localPenalty)}
+                </CustomText>
+                <CustomText style={styles.resultText}>-</CustomText>
+                <CustomText style={styles.resultText}>
+                  {String(item.visitPenalty) + ')'}
+                </CustomText>
               </View>
             )}
           </View>
@@ -119,7 +138,9 @@ export function MatchCard({ item, index, type }: MatchCardProps) {
         <View style={styles.matchFooter}>
           <View style={styles.venueContainer}>
             <MapPinIcon size={16} color="#FFF" />
-            <CustomText style={styles.venueText}>{item.place.description}</CustomText>
+            <CustomText style={styles.venueText}>
+              {item.place.description}
+            </CustomText>
           </View>
           <View style={styles.dateContainer}>
             <CalendarIcon size={16} color="#FFF" />
@@ -360,6 +381,12 @@ const styles = StyleSheet.create({
   },
   backResult: {
     backgroundColor: COLORS.card.terciary,
+    flexDirection: "row",
+    paddingHorizontal: 6,
+    borderRadius: 5,
+  },
+  backResult2: {
+    backgroundColor: COLORS.card.terciary + "80",
     flexDirection: "row",
     paddingHorizontal: 6,
     borderRadius: 5,

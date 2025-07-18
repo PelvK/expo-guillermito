@@ -44,8 +44,8 @@ export default function GroupTeamsScreen() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 56 }}
           >
-            {teams.map((item) => {
-              return <TeamCard key={item.id} item={item} index={item.id} />;
+            {teams.map((item, index) => {
+              return <TeamCard key={item.id} item={item} index={index} />;
             })}
           </ScrollView>
         ) : (

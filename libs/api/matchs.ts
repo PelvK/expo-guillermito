@@ -60,6 +60,7 @@ export async function getMatchsByCategoryAndDay(
   const API = `${BASE_URL}/apis/get_matchs_by_category_and_day.php?category=${category}&day=${day}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
+
   return json.map((item: Match) => {
     const {
       ID,
