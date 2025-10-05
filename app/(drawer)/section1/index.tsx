@@ -88,7 +88,7 @@ export default function Section1Screen() {
         {/* Hero Section */}
         <View style={styles.heroSection}>
           <Image
-            source={require("@/assets/icon_femenino.png")}
+            source={require("@/assets/icon.png")}
             style={styles.logo}
             resizeMode="contain"
           />
