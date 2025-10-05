@@ -88,8 +88,13 @@ export default function Section2Screen() {
                     ...SHADOWS[isDark ? "dark" : "light"].medium,
                   },
                 ]}
-                onPress={() => {
-                  router.push(`/section2/${category.id}`);
+                 onPress={() => {
+                  router.push({
+                    pathname: `/section2/${category.id}`,
+                    params: {
+                      description: category.description,
+                    },
+                  });
                 }}
               >
                 <Text

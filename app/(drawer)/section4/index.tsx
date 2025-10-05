@@ -16,7 +16,7 @@ import { useCategoriesWithZones } from "@/hooks/categories/useCategoriesAndZones
 import { CustomLoading } from "@/components/screens/CustomLoading";
 import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
-export default function Section2Screen() {
+export default function Section4Screen() {
   const { categories, loading, error, refreshCategories } =
     useCategoriesWithZones();
   const router = useRouter();
@@ -79,8 +79,13 @@ export default function Section2Screen() {
                 },
               ]}
               onPress={() => {
-                router.push(`/section4/${category.id}`);
-              }}
+                  router.push({
+                    pathname: `/section4/${category.id}`,
+                    params: {
+                      description: category.description,
+                    },
+                  });
+                }}
             >
               <Text
                 style={[

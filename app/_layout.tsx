@@ -20,7 +20,12 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-        <Stack>
+        <Stack
+          screenOptions={{
+            headerBackTitle: "Volver",
+            headerBackTitleStyle: { fontSize: 13 },
+          }}
+        >
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           <Stack.Screen

@@ -1,12 +1,22 @@
-import { Tabs, useLocalSearchParams } from "expo-router";
+import { Tabs, useLocalSearchParams, useNavigation } from "expo-router";
 import { useColorScheme } from "react-native";
 import { COLORS } from "@/constants/theme";
 import { CalendarCheckIcon } from "lucide-react-native";
+import { useEffect } from "react";
 
 export default function CategoryTabsLayout() {
   const colorScheme = useColorScheme();
-  const { category } = useLocalSearchParams();
-  const isDark = "dark"; //colorScheme === 'dark';
+  const { category, description } = useLocalSearchParams();
+  const navigation = useNavigation();
+  const isDark = "dark";
+
+  useEffect(() => {
+    if (category) {
+      navigation.setOptions({
+        title: `Partidos por día - ${description}`,
+      });
+    }
+  }, [category, navigation]);
 
   return (
     <Tabs

@@ -15,13 +15,16 @@ import { MatchCard } from "@/components/cards/MatchCard";
 import { CUP } from "@/libs/types";
 import { CustomLoading } from "@/components/screens/CustomLoading";
 import { CustomNoResults } from "@/components/screens/CustomNoResult";
+import { useRemoteSettings } from "@/hooks/useRemoteSettings";
+
 
 export default function GoldScreen() {
+  const { settings, loading: loadingSettings, error: errorSettings } = useRemoteSettings();
   const { category, categoryName, limitCup } = useLocalSearchParams();
   const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
     useMatchsCupsByCategory(Number(category), CUP.GOLD);
 
-  if (loadingMatchs) {
+  if (loadingMatchs || loadingSettings) {
     return (
       <CustomBackground>
         <CustomLoading />
@@ -52,21 +55,23 @@ export default function GoldScreen() {
   return (
     <CustomBackground>
       <View style={{ flexDirection: "row", width: "100%" }}>
-        <TouchableOpacity
-          style={[styles.button]}
-          onPress={() => {
-            router.push({
-              pathname: "/section5/general-table/[category]",
-              params: {
-                category: category, 
-                categoryName: categoryName,
-                limitCup: limitCup
-              },
-            });
-          }}
-        >
-          <Text style={styles.textButton}> Ver la tabla general </Text>
-        </TouchableOpacity>
+        {settings?.showGeneralTable && (
+          <TouchableOpacity
+            style={[styles.button]}
+            onPress={() => {
+              router.push({
+                pathname: "/section5/general-table/[category]",
+                params: {
+                  category: category, 
+                  categoryName: categoryName,
+                  limitCup: limitCup
+                },
+              });
+            }}
+          >
+            <Text style={styles.textButton}> Ver la tabla general </Text>
+          </TouchableOpacity>
+        )}
       </View>
       <ScrollView
         style={[styles.containerScroll]}

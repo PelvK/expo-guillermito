@@ -1,6 +1,6 @@
-import React, { act } from "react";
+import React, { act, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { withLayoutContext } from "expo-router";
+import { useNavigation, withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
@@ -17,7 +17,8 @@ export const MaterialTopTabs = withLayoutContext(Navigator);
 export default function GroupDetailsTabsLayout() {
   const colorScheme = useColorScheme();
   const { category, categoryName, limitCup } = useLocalSearchParams();
-  const isDark = "dark"; //colorScheme === 'dark';
+  const navigation = useNavigation();
+  const isDark = "dark";
 
   if (!category) {
     return (
@@ -28,6 +29,14 @@ export default function GroupDetailsTabsLayout() {
       </View>
     );
   }
+
+  useEffect(() => {
+    if (category) {
+      navigation.setOptions({
+        title: `Cruces de la categoría - ${categoryName}`,
+      });
+    }
+  }, [category, navigation]);
 
   return (
     <View style={styles.container}>
@@ -64,7 +73,7 @@ export default function GroupDetailsTabsLayout() {
             initialParams={{
               category: category,
               categoryName: categoryName,
-              limitCup: limitCup
+              limitCup: limitCup,
             }}
           />
           <MaterialTopTabs.Screen
@@ -78,7 +87,7 @@ export default function GroupDetailsTabsLayout() {
             initialParams={{
               category: category,
               categoryName: categoryName,
-              limitCup: limitCup
+              limitCup: limitCup,
             }}
           />
         </MaterialTopTabs>

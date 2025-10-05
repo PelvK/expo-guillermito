@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -7,11 +7,12 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Linking,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from "react-native";
-import { COLORS, SPACING } from "@/constants";
+import { BASE_URL, COLORS, SPACING } from "@/constants";
 import { CustomBackground } from "@/components/screens/CustomBackground";
 import {
   Calendar,
@@ -24,66 +25,58 @@ import {
   Target,
 } from "lucide-react-native";
 import { useStats } from "@/hooks/useStats";
+import { useRemoteSettings } from "@/hooks/useRemoteSettings";
+import { useSponsors } from "@/hooks/useSponsors";
 
 const { width } = Dimensions.get("window");
 
-const sponsors = [
-  {
-    id: 1,
-    name: "",
-    image: "add-001",
-  },
-  {
-    id: 2,
-    name: "",
-    image: "add-002",
-  },
-  {
-    id: 3,
-    name: "",
-    image: "add-003",
-  },
-  {
-    id: 4,
-    name: "",
-    image: "add-004",
-  },
-  {
-    id: 5,
-    name: "",
-    image: "add-005",
-  },
-  {
-    id: 6,
-    name: "",
-    image: "add-006",
-  },
-];
-
-const sponsorImages: Record<string, any> = {
-  "add-001": require("../../../assets/adds/add001.png"),
-  "add-002": require("../../../assets/adds/add002.png"),
-  "add-003": require("../../../assets/adds/add003.png"),
-  "add-004": require("../../../assets/adds/add004.png"),
-  "add-005": require("../../../assets/adds/add005.png"),
-  "add-006": require("../../../assets/adds/add006.jpg"),
-};
-
 
 export default function Section1Screen() {
+  const {
+    settings,
+    loading: loadingSettings,
+    error: errorSettings,
+  } = useRemoteSettings();
   const router = useRouter();
   const { stats } = useStats();
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
+  const { sponsors, loading, error } = useSponsors();
   const isDark = colorScheme === "dark";
 
-   const tournamentStats = useMemo(() => [
-    { icon: Users, label: "Equipos", value: stats?.teamCount ?? "-", color: COLORS.card.gold },
-    { icon: Trophy, label: "Categ.", value: stats?.categCount ?? "-", color: COLORS.card.gold },
-    { icon: MapPin, label: "Canchas", value: stats?.placesCount ?? "-", color: COLORS.card.gold },
-    { icon: Calendar, label: "Días", value: stats?.days ?? "-", color: COLORS.card.gold },
-  ], [stats]);
+  const tournamentStats = useMemo(
+    () => [
+      {
+        icon: Users,
+        label: "Equipos",
+        value: stats?.teamCount ?? "-",
+        color: "#ddd",
+      },
+      {
+        icon: Trophy,
+        label: "Categ.",
+        value: stats?.categCount ?? "-",
+        color: "#ddd",
+      },
+      {
+        icon: MapPin,
+        label: "Canchas",
+        value: stats?.placesCount ?? "-",
+        color: "#ddd",
+      },
+      {
+        icon: Calendar,
+        label: "Días",
+        value: stats?.days ?? "-",
+        color: "#ddd",
+      },
+    ],
+    [stats]
+  );
 
+    useEffect(() => {
+  console.log(sponsors);
+}, [sponsors]);
 
   return (
     <CustomBackground>
@@ -102,7 +95,7 @@ export default function Section1Screen() {
 
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcomeTitle}>Bienvenidos al</Text>
-            <Text style={styles.tournamentTitle}>Torneo Guillermito Femenino 2025 </Text>
+            <Text style={styles.tournamentTitle}>Torneo Guillermito 2025 </Text>
           </View>
 
           {/* Countdown or Date Info */}
@@ -157,27 +150,35 @@ export default function Section1Screen() {
         </View>
 
         {/* Sponsors Section */}
-        <View style={styles.sponsorsSection}>
-          <Text style={styles.sectionTitle}>Nuestros Patrocinadores</Text>
-          <Text style={styles.sponsorsSubtitle}>
-            Gracias a quienes hacen posible este torneo
-          </Text>
+        {settings?.showSponsors && (
+          <View style={styles.sponsorsSection}>
+            <Text style={styles.sectionTitle}>Nuestros Patrocinadores</Text>
+            <Text
+              style={styles.sponsorsSubtitle}>
+              Gracias a quienes hacen posible este torneo
+            </Text>
 
-          <View style={styles.sponsorsGrid}>
-            {sponsors.map((sponsor) => (
-              <TouchableOpacity key={sponsor.id} style={styles.sponsorCard}>
-                <Image
-                  source={sponsorImages[sponsor.image]}
-                  style={styles.sponsorImage}
-                />
-
-                <View style={styles.sponsorOverlay}>
-                  <Text style={styles.sponsorName}>{sponsor.name}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
+            <View style={styles.sponsorsGrid}>
+              {sponsors.map((sponsor) => (
+                <TouchableOpacity
+                  key={sponsor.id}
+                  style={styles.sponsorCard}
+                  onPress={() => {
+                    if (sponsor.link) Linking.openURL(sponsor.link);
+                  }}
+                  activeOpacity={sponsor.link ? 0.7 : 1}
+                  disabled={!sponsor.link}
+                >
+                  <Image
+                    source={{ uri: BASE_URL + '/data/img/sponsors/' + sponsor.image }}
+                    style={styles.sponsorImage}
+                  />
+                  <View style={styles.sponsorOverlay}></View>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
-        </View>
+        )}
       </ScrollView>
     </CustomBackground>
   );

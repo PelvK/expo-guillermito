@@ -15,8 +15,11 @@ import { MatchCard } from "@/components/cards/MatchCard";
 import { CUP } from "@/libs/types";
 import { CustomLoading } from "@/components/screens/CustomLoading";
 import { CustomNoResults } from "@/components/screens/CustomNoResult";
+import { useRemoteSettings } from "@/hooks/useRemoteSettings";
 
-export default function GoldScreen() {
+
+export default function SilverScreen() {
+  const { settings, loading: loadingSettings, error: errorSettings } = useRemoteSettings();
   const { category, categoryName, limitCup } = useLocalSearchParams();
   const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
     useMatchsCupsByCategory(Number(category), CUP.SILVER);
@@ -52,6 +55,7 @@ export default function GoldScreen() {
   return (
     <CustomBackground>
       <View style={{ flexDirection: "row", width: "100%" }}>
+        {settings?.showGeneralTable && (
         <TouchableOpacity
           style={[styles.button]}
           onPress={() => {
@@ -67,6 +71,7 @@ export default function GoldScreen() {
         >
           <Text style={styles.textButton}> Ver la tabla general </Text>
         </TouchableOpacity>
+      )}
       </View>
       <ScrollView
         style={[styles.containerScroll]}

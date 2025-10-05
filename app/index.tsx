@@ -6,9 +6,10 @@ import {
   fetchUpdateAsync,
   reloadAsync,
 } from "expo-updates";
-import { APP_DONE } from "@/constants";
 import { CustomNotReady } from "@/components/screens/CustomNotReady";
 import { CustomBackground } from "@/components/screens/CustomBackground";
+import { useRemoteSettings } from "@/hooks/useRemoteSettings";
+
 
 export const options = {
   headerShown: false,
@@ -28,6 +29,7 @@ async function onFetchUpdateAsync() {
 }
 
 export default function Index() {
+  const { settings, loading: loadingSettings, error: errorSettings } = useRemoteSettings();
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function Index() {
     }
   }, []);
 
-  if (!appReady) {
+  if (!appReady || loadingSettings) {
     return (
       <AnimatedSplashScreen
         onFinish={() => {
@@ -49,7 +51,7 @@ export default function Index() {
     );
   }
 
-  if (!APP_DONE) {
+  if (!settings?.appDone) {
     return (
       <CustomBackground>
         <CustomNotReady></CustomNotReady>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { withLayoutContext } from "expo-router";
+import { useNavigation, withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
@@ -13,8 +13,9 @@ export const MaterialTopTabs = withLayoutContext(Navigator);
 
 export default function GroupDetailsTabsLayout() {
   const colorScheme = useColorScheme();
-  const { category } = useLocalSearchParams();
-  const isDark = "dark"; //colorScheme === 'dark';
+  const { category, description } = useLocalSearchParams();
+  const navigation = useNavigation();
+  const isDark = "dark";
 
   if (!category) {
     return (
@@ -23,6 +24,14 @@ export default function GroupDetailsTabsLayout() {
       </View>
     );
   }
+
+  useEffect(() => {
+      if (category) {
+        navigation.setOptions({
+          title: `Detalles de la categoría - ${description}`,
+        });
+      }
+    }, [category, navigation]);
 
   return (
     <View style={styles.container}>

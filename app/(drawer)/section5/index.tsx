@@ -15,7 +15,7 @@ import { useCategoriesWithZones } from "@/hooks/categories/useCategoriesAndZones
 import { CustomLoading } from "@/components/screens/CustomLoading";
 import { CustomNoResults } from "@/components/screens/CustomNoResult";
 
-export default function Section2Screen() {
+export default function Section5Screen() {
   const { categories, loading, error, refreshCategories } =
     useCategoriesWithZones();
   const router = useRouter();
