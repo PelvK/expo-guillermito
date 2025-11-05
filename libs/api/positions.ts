@@ -20,8 +20,8 @@ export async function getPositionsByTeamId(
 
       const shieldURL =
         team.shield != null
-          ? `${BASE_URL}/img/shields/${team.shield}`
-          : `${BASE_URL}/img/shields/default_shield.png`;
+          ? `${BASE_URL}/data/img/shields/${team.shield}`
+          : `${BASE_URL}/data/img/shields/default_shield.png`;
 
       return {
         ID,
@@ -34,7 +34,7 @@ export async function getPositionsByTeamId(
     });
   }
 
-  const API = `${BASE_URL}/apis/get_position_by_team_id.php?teamID=${teamID}`;
+  const API = `${BASE_URL}/apis/mobile/get_position_by_team_id.php?teamID=${teamID}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
 
@@ -43,8 +43,8 @@ export async function getPositionsByTeamId(
 
     const shieldURL =
       team.shield != null
-        ? `${BASE_URL}/img/shields/${team.shield}`
-        : `${BASE_URL}/img/shields/default_shield.png`;
+        ? `${BASE_URL}/data/img/shields/${team.shield}`
+        : `${BASE_URL}/data/img/shields/default_shield.png`;
 
     return {
       ID,
@@ -71,8 +71,8 @@ export async function getPositionsByCategory(
 
         const shieldURL =
           team.shield != null
-            ? `${BASE_URL}/img/shields/${team.shield}`
-            : `${BASE_URL}/img/shields/default_shield.png`;
+            ? `${BASE_URL}/data/img/shields/${team.shield}`
+            : `${BASE_URL}/data/img/shields/default_shield.png`;
 
         return {
           ID,
@@ -90,7 +90,7 @@ export async function getPositionsByCategory(
     });
   }
 
-  const API = `${BASE_URL}/apis/get_position_by_category.php?category=${category}`;
+  const API = `${BASE_URL}/apis/mobile/get_position_by_category.php?category=${category}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
 
@@ -102,8 +102,8 @@ export async function getPositionsByCategory(
 
       const shieldURL =
         team.shield != null
-          ? `${BASE_URL}/img/shields/${team.shield}`
-          : `${BASE_URL}/img/shields/default_shield.png`;
+          ? `${BASE_URL}/data/img/shields/${team.shield}`
+          : `${BASE_URL}/data/img/shields/default_shield.png`;
 
       return {
         ID,
@@ -132,8 +132,8 @@ export async function getPositionsGeneralByCategory(
 
       const shieldURL =
         team.shield != null
-          ? `${BASE_URL}/img/shields/${team.shield}`
-          : `${BASE_URL}/img/shields/default_shield.png`;
+          ? `${BASE_URL}/data/img/shields/${team.shield}`
+          : `${BASE_URL}/data/img/shields/default_shield.png`;
 
       return {
         ID,
@@ -146,7 +146,7 @@ export async function getPositionsGeneralByCategory(
     });
   }
 
-  const API = `${BASE_URL}/apis/get_position_general_by_category.php?category=${category}`;
+  const API = `${BASE_URL}/apis/mobile/get_position_general_by_category.php?category=${category}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
 
@@ -155,8 +155,8 @@ export async function getPositionsGeneralByCategory(
 
     const shieldURL =
       team.shield != null
-        ? `${BASE_URL}/img/shields/${team.shield}`
-        : `${BASE_URL}/img/shields/default_shield.png`;
+        ? `${BASE_URL}/data/img/shields/${team.shield}`
+        : `${BASE_URL}/data/img/shields/default_shield.png`;
 
     return {
       ID,

@@ -1,6 +1,6 @@
-export const BASE_URL : string = "https://vps-4677860-x.dattaweb.com/guillermito";
-export const PDF_URL : string = "https://vps-4677860-x.dattaweb.com/guillermito/reglamento.pdf";
-export const MAP_URL : string = "https://vps-4677860-x.dattaweb.com/guillermito/canchas.pdf";
+export const BASE_URL : string = "https://vps-4677860-x.dattaweb.com/tournaments/guillermito";
+export const PDF_URL : string = "https://vps-4677860-x.dattaweb.com/tournaments/guillermito/data/reglamento2025.pdf";
+export const MAP_URL : string = "https://vps-4677860-x.dattaweb.com/tournaments/guillermito/data/canchas.pdf";
 
 export const PDF_NAME : string = "reglamento.pdf";
 export const IS_MOCKED : boolean = false;

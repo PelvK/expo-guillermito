@@ -32,6 +32,7 @@ export default function Index() {
   const { settings, loading: loadingSettings, error: errorSettings } = useRemoteSettings();
   const [appReady, setAppReady] = useState(false);
 
+  console.log("Settings:", settings, loadingSettings, errorSettings);
   useEffect(() => {
     const init = async () => {
       await onFetchUpdateAsync();

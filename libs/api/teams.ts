@@ -15,8 +15,8 @@ export async function getTeamsByCategory(
       const { id, shield, name, category, zone } = item;
       const shieldURL =
         shield != null
-          ? `${BASE_URL}/img/shields/${shield}`
-          : `${BASE_URL}/img/shields/default_shield.png`;
+          ? `${BASE_URL}/data/img/shields/${shield}`
+          : `${BASE_URL}/data/img/shields/default_shield.png`;
 
       return {
         id: id,
@@ -28,15 +28,15 @@ export async function getTeamsByCategory(
     });
   }
 
-  const API = `${BASE_URL}/apis/get_teams_by_category.php?categoryID=${category}`;
+  const API = `${BASE_URL}/apis/mobile/get_teams_by_category.php?categoryID=${category}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
   return json.map((item: Team) => {
     const { id, shield, name, category, zone } = item;
     const shieldURL =
       shield != null
-        ? `${BASE_URL}/img/shields/${shield}`
-        : `${BASE_URL}/img/shields/default_shield.png`;
+        ? `${BASE_URL}/data/img/shields/${shield}`
+        : `${BASE_URL}/data/img/shields/default_shield.png`;
 
     return {
       id: id,
@@ -57,8 +57,8 @@ export async function getTeamById(teamID: number): Promise<Team> {
 
     const shieldURL =
       TEAM_FILTER.shield != null
-        ? `${BASE_URL}/img/shields/${TEAM_FILTER.shield}`
-        : `${BASE_URL}/img/shields/default_shield.png`;
+        ? `${BASE_URL}/data/img/shields/${TEAM_FILTER.shield}`
+        : `${BASE_URL}/data/img/shields/default_shield.png`;
 
     return {
       id: TEAM_FILTER.id,
@@ -69,7 +69,7 @@ export async function getTeamById(teamID: number): Promise<Team> {
     };
   }
 
-  const API = `${BASE_URL}/apis/get_team_by_team_id.php?teamID=${teamID}`;
+  const API = `${BASE_URL}/apis/mobile/get_team_by_team_id.php?teamID=${teamID}`;
   const rawData = await fetch(API);
   const json = await rawData.json();
 
@@ -77,8 +77,8 @@ export async function getTeamById(teamID: number): Promise<Team> {
 
   const shieldURL =
     shield != null
-      ? `${BASE_URL}/img/shields/${shield}`
-      : `${BASE_URL}/img/shields/default_shield.png`;
+      ? `${BASE_URL}/data/img/shields/${shield}`
+      : `${BASE_URL}/data/img/shields/default_shield.png`;
 
   return {
     id: id,

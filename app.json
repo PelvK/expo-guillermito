@@ -3,7 +3,7 @@
     "name": "Torneo Guillermito 2025",
     "slug": "expo-guillermito",
     "scheme": "efiguillermito",
-    "version": "1.0.3",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

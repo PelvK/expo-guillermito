@@ -2,7 +2,7 @@ import { BASE_URL } from "@/constants";
 import { Stats } from "../types";
 
 export async function getStats(): Promise<Stats | null> {
-  const API = `${BASE_URL}/apis/get_stats.php`;
+  const API = `${BASE_URL}/apis/mobile/get_stats.php`;
   const rawData = await fetch(API);
   const json = await rawData.json();
 

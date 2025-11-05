@@ -9,7 +9,7 @@ export async function getCategoriesAndZones(): Promise<Category[] | null> {
     return CATEGORIES_LIST;
   }
 
-  const API = `${BASE_URL}/apis/get_categories_and_zones.php`;
+  const API = `${BASE_URL}/apis/mobile/get_categories_and_zones.php`;
   const rawData = await fetch(API);
   if (!rawData.ok) {
       throw new Error("Error al obtener categorías");
