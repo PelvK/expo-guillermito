@@ -22,46 +22,6 @@ export default function RulesScreen() {
       id: 1,
       image: "page-001",
     },
-    {
-      id: 2,
-      image: "page-002",
-    },
-    {
-      id: 3,
-      image: "page-003",
-    },
-    {
-      id: 4,
-      image: "page-004",
-    },
-    {
-      id: 5,
-      image: "page-005",
-    },
-    {
-      id: 6,
-      image: "page-006",
-    },
-    {
-      id: 7,
-      image: "page-007",
-    },
-    {
-      id: 8,
-      image: "page-008",
-    },
-    {
-      id: 9,
-      image: "page-009",
-    },
-    {
-      id: 10,
-      image: "page-010",
-    },
-    {
-      id: 11,
-      image: "page-011",
-    },
   ];
 
   const handleOpenPDF = () => {
@@ -70,16 +30,6 @@ export default function RulesScreen() {
 
   const rulesRequires: Record<string, any> = {
     "page-001": require("../../../assets/rules/page001.png"),
-    "page-002": require("../../../assets/rules/page002.png"),
-    "page-003": require("../../../assets/rules/page003.png"),
-    "page-004": require("../../../assets/rules/page004.png"),
-    "page-005": require("../../../assets/rules/page005.png"),
-    "page-006": require("../../../assets/rules/page006.png"),
-    "page-007": require("../../../assets/rules/page007.png"),
-    "page-008": require("../../../assets/rules/page008.png"),
-    "page-009": require("../../../assets/rules/page009.png"),
-    "page-010": require("../../../assets/rules/page010.png"),
-    "page-011": require("../../../assets/rules/page011.png"),
   };
 
   return (
