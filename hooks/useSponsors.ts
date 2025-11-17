@@ -12,7 +12,7 @@ export function useSponsors() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API = `${BASE_URL}/apis/mobile/mobile/get_sponsors.php`;
+  const API = `${BASE_URL}/apis/mobile/get_sponsors.php`;
   
   useEffect(() => {
     setLoading(true);

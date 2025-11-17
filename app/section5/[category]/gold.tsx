@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "react-native";
@@ -21,6 +22,7 @@ import { useRemoteSettings } from "@/hooks/useRemoteSettings";
 export default function GoldScreen() {
   const { settings, loading: loadingSettings, error: errorSettings } = useRemoteSettings();
   const { category, categoryName, limitCup } = useLocalSearchParams();
+  const [descriptionModalVisible, setDescriptionModalVisible] = useState(false);
   const { matchs, loadingMatchs, errorMatchs, refreshMatchs } =
     useMatchsCupsByCategory(Number(category), CUP.GOLD);
 
@@ -54,6 +56,53 @@ export default function GoldScreen() {
 
   return (
     <CustomBackground>
+      {
+        descriptionModalVisible && (
+            <Modal
+            animationType="fade"
+            transparent
+            visible={descriptionModalVisible}
+            onRequestClose={() => {
+              setDescriptionModalVisible(!descriptionModalVisible);
+            }}
+            >
+            <View
+              style={{
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              justifyContent: "center",
+              alignItems: "center",
+              }}
+            >
+              <View
+              style={{
+                backgroundColor: COLORS.primary,
+                padding: 24,
+                borderRadius: 10,
+                minWidth: "70%",
+                alignItems: "center",
+
+              }}
+              >
+              <Text style={{ fontSize: 18, marginBottom: 16, color: 'white' }}>
+                {settings?.divisionDescriptions[categoryName as string]}
+              </Text>
+              <TouchableOpacity
+                onPress={() => setDescriptionModalVisible(false)}
+                style={{
+                marginTop: 12,
+                padding: 10,
+                backgroundColor: COLORS.card.gold,
+                borderRadius: 6,
+                }}
+              >
+                <Text style={{ color: COLORS.text.dark.primary, fontWeight: "bold" }}>Cerrar</Text>
+              </TouchableOpacity>
+              </View>
+            </View>
+            </Modal>
+        )
+      }
       <View style={{ flexDirection: "row", width: "100%" }}>
         {settings?.showGeneralTable && (
           <TouchableOpacity
@@ -71,6 +120,25 @@ export default function GoldScreen() {
           >
             <Text style={styles.textButton}> Ver la tabla general </Text>
           </TouchableOpacity>
+        )}
+      </View>
+      <View style={{ flexDirection: "row", width: "100%", marginTop: 10, marginBottom: 10 }}>
+        {settings?.showDivisionDescriptions && (
+          <Text
+            style={{
+              marginHorizontal: 30,
+              fontSize: 16,
+              alignSelf: "center",
+              textAlign: "center",
+              color: 'white',
+              textDecorationLine: "underline",
+            }}
+            onPress={() => {
+              setDescriptionModalVisible(true);
+            }}
+          >
+            Pulsa aquí para ver el criterio de separacion por copas en la categoría {categoryName}
+          </Text>
         )}
       </View>
       <ScrollView

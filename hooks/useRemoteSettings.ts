@@ -5,6 +5,8 @@ export type AppSettings = {
   showGeneralTable: boolean;
   showSponsors: boolean;
   appDone: boolean;
+  showDivisionDescriptions: boolean;
+  divisionDescriptions: Record<string, string>;
 };
 
 const SETTINGS_URL = `${BASE_URL}/data/settings.json`;

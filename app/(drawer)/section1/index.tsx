@@ -74,9 +74,7 @@ export default function Section1Screen() {
     [stats]
   );
 
-    useEffect(() => {
-  console.log(sponsors);
-}, [sponsors]);
+
 
   return (
     <CustomBackground>
@@ -164,7 +162,7 @@ export default function Section1Screen() {
                   key={sponsor.id}
                   style={styles.sponsorCard}
                   onPress={() => {
-                    if (sponsor.link) Linking.openURL(sponsor.link);
+                    if (sponsor.link && sponsor.link !== 'null') Linking.openURL(sponsor.link);
                   }}
                   activeOpacity={sponsor.link ? 0.7 : 1}
                   disabled={!sponsor.link}
